@@ -289,7 +289,8 @@ function parseOptions(txt) {
   });
 }
 const optionsText = o => (o || []).map(x => x.label + (isNum(x.price) ? ' ' + (+x.price).toFixed(2) : '')).join('\n');
-const priceText = i => (i.options && i.options.length) ? i.options.map(o => `${esc(o.label)} ${money(o.price)}`).join(' · ') : money(i.price);
+const optPrice = (i, o) => (o && isNum(o.price) ? +o.price : isNum(i.price) ? +i.price : null);
+const priceText = i => (i.options && i.options.length) ? i.options.map(o => `${esc(o.label)} ${money(optPrice(i, o))}`).join(' · ') : money(i.price);
 
 async function shrink(file, max, q) {
   const url = URL.createObjectURL(file);
@@ -608,7 +609,13 @@ const isStaff = () => !!S.profile && (S.profile.role === 'owner' || S.profile.ro
 const pushOn = () => ls.get('omega_push', false) === true && 'Notification' in window && Notification.permission === 'granted';
 const saveCart = () => ls.set('omega_cart', S.cart);
 const cartCount = () => S.cart.reduce((n, c) => n + c.qty, 0);
-const cartTotal = () => S.cart.reduce((a, c) => { if (isNum(c.price)) a.total += c.price * c.qty; else a.unpriced = true; return a; }, { total: 0, unpriced: false });
+function linePrice(c) {
+  const r = findRef(c.k, c.id); if (!r) return isNum(c.price) ? +c.price : null;
+  if (c.k !== 'item') return isNum(r.price) ? +r.price : null;
+  const o = c.option ? (r.options || []).find(x => x.label === c.option) : null;
+  return optPrice(r, o);
+}
+const cartTotal = () => S.cart.reduce((a, c) => { const pr = linePrice(c); if (isNum(pr)) a.total += pr * c.qty; else a.unpriced = true; return a; }, { total: 0, unpriced: false });
 const newOrderCount = () => S.allOrders.filter(o => o.status === 'new').length;
 const activeDeals = () => S.data.deals.filter(d => d.active && new Date(d.ends_at) > new Date() && !(d.qty_left !== null && d.qty_left !== undefined && d.qty_left <= 0));
 const todaysSpecials = () => { const wd = new Date().getDay(); return S.data.specials.filter(s => s.active && (!s.days || !s.days.length || s.days.includes(wd))); };
@@ -893,7 +900,7 @@ function viewPickup() {
 function cartLine(c) {
   return `<div class="line"><div class="grow"><b>${esc(c.name)}</b>${c.option ? ` <span class="sub">(${esc(c.option)})</span>` : ''}${c.k === 'deal' ? ' <span class="pill red">Deal</span>' : ''}${c.note ? `<div class="sub small">${esc(c.note)}</div>` : ''}</div>
     <div class="qty sm"><button data-a="cq" data-key="${esc(c.key)}" data-d="-1" aria-label="Less">−</button><span>${c.qty}</span><button data-a="cq" data-key="${esc(c.key)}" data-d="1" aria-label="More">+</button></div>
-    <div class="line-p">${isNum(c.price) ? money(c.price * c.qty) : ''}</div></div>`;
+    <div class="line-p">${isNum(linePrice(c)) ? money(linePrice(c) * c.qty) : ''}</div></div>`;
 }
 function viewCatering() {
   const s = ST();
@@ -1199,7 +1206,7 @@ const SHEETS = {
     const r = findRef('item', sh.id); if (!r) return '<p>Not found.</p>';
     const opts = r.options || [];
     return `<form data-f="addItem">${r.photo_url ? `<img class="bigimg" src="${esc(r.photo_url)}" alt="" style="margin-bottom:12px">` : ''}<h3>${esc(r.name)}</h3>${r.description ? `<p class="sub" style="margin-top:0">${esc(r.description)}</p>` : ''}
-      ${opts.length ? opts.map((o, i) => `<label class="opt"><input type="radio" name="opt" value="${i}" ${i === 0 ? 'checked' : ''}><span>${esc(o.label)}</span><b>${money(o.price)}</b></label>`).join('') : `<p><b>${money(r.price)}</b></p>`}
+      ${opts.length ? opts.map((o, i) => `<label class="opt"><input type="radio" name="opt" value="${i}" ${i === 0 ? 'checked' : ''}><span>${esc(o.label)}</span><b>${money(optPrice(r, o))}</b></label>`).join('') : `<p><b>${money(r.price)}</b></p>`}
       <label class="fld" style="margin-top:12px"><span>Special instructions (optional)</span><input name="note" maxlength="120" placeholder="e.g. no onions"></label>
       <div class="addrow"><div class="qty"><button type="button" data-a="sqty" data-d="-1" aria-label="Less">−</button><input name="qty" value="1" readonly aria-label="Quantity"><button type="button" data-a="sqty" data-d="1" aria-label="More">+</button></div><button class="btn grow">Add to order</button></div></form>`;
   },
@@ -1289,7 +1296,7 @@ function addToCart(line) {
   toast(`Added ${line.qty > 1 ? line.qty + '× ' : ''}${line.name}${line.option ? ' (' + line.option + ')' : ''}`, { label: 'View order', a: 'gotoCart' });
   renderMain();
 }
-function lineOut(c) { return { name: c.name + (c.option ? ` (${c.option})` : '') + (c.k === 'deal' ? ' — DEAL' : ''), qty: c.qty, price: isNum(c.price) ? c.price : null, note: c.note || null }; }
+function lineOut(c) { const pr = linePrice(c); return { name: c.name + (c.option ? ` (${c.option})` : '') + (c.k === 'deal' ? ' — DEAL' : ''), qty: c.qty, price: isNum(pr) ? pr : null, note: c.note || null }; }
 function dropEndedDeals() {
   const live = activeDeals().map(d => d.id), before = S.cart.length;
   S.cart = S.cart.filter(c => c.k !== 'deal' || live.includes(c.id));
@@ -1506,7 +1513,7 @@ const F = {
   async name(fd) { await api.updateName(S.user.id, String(fd.get('name')).trim()); S.profile = await api.profile(S.user.id); closeSheet(); renderMain(); toast('Saved'); },
   async addItem(fd) {
     const r = findRef('item', S.sheet.id); const o = (r.options || [])[+fd.get('opt') || 0];
-    addToCart({ k: 'item', id: r.id, name: r.name, option: o ? o.label : '', price: o ? (isNum(o.price) ? +o.price : null) : (isNum(r.price) ? +r.price : null), qty: Math.max(1, +fd.get('qty') || 1), note: String(fd.get('note') || '').trim() });
+    addToCart({ k: 'item', id: r.id, name: r.name, option: o ? o.label : '', price: optPrice(r, o), qty: Math.max(1, +fd.get('qty') || 1), note: String(fd.get('note') || '').trim() });
     closeSheet();
   },
   async pickup(fd) {
