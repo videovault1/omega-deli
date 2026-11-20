@@ -1,0 +1,1348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="Omega Deli — today's specials, blowout deals, menu, order ahead and catering. One Landmark Center, downtown Orlando.">
+<title>Omega Deli</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Omega Deli">
+<style>
+:root{--ink:#111;--sub:#6f6f6f;--line:#e7e7e7;--soft:#f5f5f4;--red:#c4161c;--redsoft:#fff3f2;--green:#17803d;--greensoft:#ecf8f0;--amber:#9a5b00;--ambersoft:#fff6e6;--blue:#1d4f91;--bluesoft:#eef3fb;--r:14px;--sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:#fff}
+body{margin:0;background:#fff;color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:calc(78px + var(--sb))}
+body.lock{overflow:hidden}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+img{display:block;max-width:100%}
+[hidden]{display:none!important}
+svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);-webkit-backdrop-filter:saturate(1.6) blur(10px);backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line);padding-top:var(--st)}
+.top-in{max-width:640px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{height:54px;width:auto;cursor:pointer;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.top-r{display:flex;gap:10px;align-items:center}
+.icon-btn{position:relative;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;padding:0}
+.icon-btn svg{width:20px;height:20px}
+.dot{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;border:0;font-weight:700;cursor:pointer;font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--ink);color:#fff;border:1px solid var(--ink);border-radius:12px;padding:12px 18px;font-weight:600;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:disabled{opacity:.45}
+.btn.sm{padding:8px 13px;font-size:14px;border-radius:10px}
+.btn.ghost{background:#fff;color:var(--ink);border-color:#dadada}
+.btn.red{background:var(--red);border-color:var(--red)}
+.btn.green{background:var(--green);border-color:var(--green)}
+.btn.block{display:flex;width:100%}
+.btn+.btn.block,.btn.block+.btn.block{margin-top:10px}
+.grow{flex:1;min-width:0}
+.row{display:flex;align-items:center}.between{justify-content:space-between}.gap{gap:8px}
+.center{text-align:center}
+.sub{color:var(--sub)}.small{font-size:13px}
+.label{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--sub)}
+.label.red{color:var(--red)}
+h2{font-size:21px;margin:0;letter-spacing:-.01em}
+h3{font-size:18px;margin:0 0 6px}
+.sec{margin:22px 0}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+.card{border:1px solid var(--line);border-radius:var(--r);padding:16px;background:#fff;margin-bottom:12px}
+.empty{text-align:center;padding:26px 16px}
+.empty p{margin:0 0 6px}
+.notice{display:flex;gap:12px;align-items:flex-start;background:var(--soft);border-color:transparent}
+.notice p{margin:4px 0 10px}
+.notice-ic{font-size:24px;line-height:1.1}
+.demo{background:var(--ambersoft);color:var(--amber);font-size:13px;padding:8px 16px;text-align:center}
+.announce{background:var(--ink);color:#fff;font-size:14.5px;padding:10px 16px;text-align:center;font-weight:500}
+.deal{display:flex;gap:12px;align-items:center;border:1.5px solid var(--red);background:var(--redsoft);border-radius:var(--r);padding:12px;margin-bottom:10px}
+.deal-t{font-weight:700;font-size:17px}
+.deal-p{margin-top:2px;font-size:15px}.deal-p b{color:var(--red);font-size:19px}.deal-p s{color:var(--sub);margin-left:6px}
+.deal-m{font-size:13px;color:var(--red);font-weight:600;margin-top:2px}
+.spec{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:10px;cursor:pointer}
+.spec-t{font-weight:700;font-size:16.5px}
+.thumb{width:74px;height:74px;border-radius:10px;object-fit:cover;flex:none;background:var(--soft)}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chips.sticky{position:sticky;top:calc(65px + var(--st));z-index:10;background:#fff;margin:0 -16px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.chip{flex:none;border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cnt{display:inline-grid;place-items:center;min-width:18px;height:18px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;margin-left:4px;padding:0 5px}
+.cat{scroll-margin-top:135px}
+.cat-h{margin:22px 0 2px}
+.item{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.item:last-child{border-bottom:0}
+.item.out{opacity:.55;cursor:default}
+.item-n{font-weight:650;font-size:16px}
+.item-d{color:var(--sub);font-size:14px;margin-top:1px}
+.item-p{font-size:14.5px;margin-top:3px;font-weight:500}
+.add{flex:none;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;border:0;display:grid;place-items:center;cursor:pointer;padding:0}
+.add svg{width:18px;height:18px;stroke-width:2.4}
+.deal .add{background:var(--red)}
+.pill{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--soft);color:var(--sub);vertical-align:middle;letter-spacing:.02em;white-space:nowrap}
+.pill.red{background:var(--redsoft);color:var(--red)}.pill.green{background:var(--greensoft);color:var(--green)}.pill.amber{background:var(--ambersoft);color:var(--amber)}.pill.blue{background:var(--bluesoft);color:var(--blue)}.pill.dark{background:var(--ink);color:#fff}.pill.grey{background:var(--soft);color:var(--sub)}
+.cta{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--soft);border-color:transparent}
+.cta p{margin:0}
+.foot{text-align:center;color:var(--sub);font-size:13.5px;padding:26px 0 12px;display:grid;gap:4px;justify-items:center}
+.foot-logo{height:58px;margin-bottom:6px}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:6px 6px calc(6px + var(--sb))}
+.tab{position:relative;flex:1;max-width:120px;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11.5px;font-weight:600;color:#9a9a9a;padding:6px 0;cursor:pointer}
+.tab.on{color:var(--ink)}
+.tb{position:absolute;top:0;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--red);color:#fff;font-size:11px;display:grid;place-items:center}
+.fld{display:block;margin-bottom:12px}
+.fld>span{display:block;font-size:13px;font-weight:600;color:var(--sub);margin-bottom:5px}
+input:not([type=checkbox]):not([type=radio]):not([type=file]),select,textarea{width:100%;font-size:16px;padding:12px;border:1px solid #d9d9d9;border-radius:10px;background:#fff;outline:none;-webkit-appearance:none;appearance:none}
+select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:34px!important}
+input:focus,select:focus,textarea:focus{border-color:var(--ink)!important}
+input[type=file]{font-size:14px;max-width:100%}
+textarea{resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.check{display:flex;gap:10px;align-items:center;margin:10px 0;font-size:15px;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--ink);flex:none}
+.err{color:var(--red);font-size:14px;margin:10px 0 0}
+.seg{display:flex;background:var(--soft);border-radius:12px;padding:4px;margin:16px 0 14px}
+.seg button{flex:1;border:0;background:none;padding:10px;border-radius:9px;font-weight:600;color:var(--sub);cursor:pointer}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.line{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.line-p{min-width:62px;text-align:right;font-weight:600}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;flex:none}
+.qty button{width:40px;height:44px;border:0;background:#fff;font-size:20px;cursor:pointer;padding:0}
+.qty input,.qty span{width:34px!important;flex:none;text-align:center;border:0!important;padding:0!important;font-weight:700;background:none}
+.qty.sm button{width:32px;height:32px;font-size:18px}
+.tot{display:flex;justify-content:space-between;align-items:baseline;padding-top:12px;font-size:16px}
+.tot b{font-size:20px}
+.tot.sm{padding-top:8px}.tot.sm b{font-size:16px}
+.opt{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:8px;cursor:pointer}
+.opt span{flex:1;font-weight:600}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.opt input{accent-color:var(--ink);width:18px;height:18px}
+.addrow{display:flex;gap:10px;align-items:center;margin-top:6px}
+.ord.new{border-color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber)}
+.ord-n{font-weight:700;font-size:17px;margin-top:10px}
+.ord-when{font-weight:600;margin-top:6px}
+.ord-items{list-style:none;padding:0;margin:10px 0;border-top:1px solid var(--line)}
+.ord-items li{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-size:15px}
+.ord-items li span{margin-left:auto;font-weight:600}
+.ord-notes{background:var(--soft);border-radius:10px;padding:10px;font-size:15px;margin:8px 0}
+.acts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.acts .btn{flex:1}
+.mine-o{font-size:15px;margin-top:6px}
+.idea-f{display:flex;gap:8px;margin:14px 0 4px}
+.idea-f input{flex:1;min-width:0}
+.idea{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.vote{flex:none;width:52px;height:56px;border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;cursor:pointer;color:var(--sub);padding:0}
+.vote b{font-size:16px;color:var(--ink)}
+.vote.on{background:var(--ink);border-color:var(--ink);color:#fff}.vote.on b{color:#fff}
+.idea.made .idea-t{color:var(--sub)}
+.arow{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.arow.dim{opacity:.5}
+.arow .grow{cursor:pointer}
+.acat{margin:20px 0 4px;gap:6px}
+.mini{border:1px solid var(--line);background:#fff;border-radius:8px;min-width:32px;height:32px;cursor:pointer;font-size:13px;padding:0 8px;font-weight:600}
+.stock{border:0;border-radius:999px;padding:7px 11px;font-size:12.5px;font-weight:700;background:var(--greensoft);color:var(--green);cursor:pointer;white-space:nowrap;flex:none}
+.stock.out{background:var(--redsoft);color:var(--red)}
+.tgl{position:relative;width:46px;height:28px;flex:none}
+.tgl input{opacity:0;width:0;height:0;position:absolute}
+.tgl span{position:absolute;inset:0;background:#d6d6d6;border-radius:14px;transition:.2s;cursor:pointer}
+.tgl span:before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.tgl input:checked+span{background:var(--green)}
+.tgl input:checked+span:before{transform:translateX(18px)}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.days label{position:relative}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days span{display:block;border:1px solid var(--line);border-radius:999px;padding:7px 11px;font-size:14px;font-weight:600;cursor:pointer}
+.days input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ph img{width:100%;max-height:180px;object-fit:cover;border-radius:10px;margin-bottom:8px}
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:50;animation:fade .2s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;background:#fff;border-radius:20px 20px 0 0;max-height:92vh;overflow:auto;padding:22px 18px calc(22px + var(--sb));max-width:640px;margin:0 auto;animation:up .25s ease-out;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.x{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:0;background:var(--soft);font-size:22px;line-height:1;cursor:pointer;padding:0}
+.sheet h3{padding-right:40px}
+.sheet .seg{margin-top:4px}
+.bigimg{width:100%;border-radius:12px}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+@keyframes fade{from{opacity:0}}
+.nt{padding:12px 0;border-bottom:1px solid var(--line)}
+.steps{padding-left:20px;margin:8px 0 14px}.steps li{margin:6px 0}
+.toast{position:fixed;left:12px;right:12px;bottom:calc(84px + var(--sb));z-index:60;max-width:560px;margin:0 auto;background:var(--ink);color:#fff;border-radius:14px;padding:13px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 8px 30px rgba(0,0,0,.25);transform:translateY(20px);opacity:0;pointer-events:none;transition:.25s}
+.toast.show{transform:none;opacity:1;pointer-events:auto}
+.toast button{background:#fff;color:var(--ink);border:0;border-radius:9px;padding:7px 11px;font-weight:700;cursor:pointer;flex:none}
+.splash{min-height:80vh;display:grid;place-items:center}.splash img{width:180px;animation:pulse 1.2s infinite alternate}
+@keyframes pulse{to{opacity:.35}}
+.qrpage{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 20px;text-align:center}
+.qr-logo{width:250px}.qr{width:min(78vw,360px);aspect-ratio:1;background:var(--soft)}.qr-h{font-size:26px;font-weight:800;line-height:1.2}.qr-s{color:var(--sub);font-size:17px}.qr-u{font-size:14px;color:var(--sub)}
+@media print{.noprint{display:none!important}body{padding:0}}
+</style>
+</head>
+<body>
+<div id="app"><div class="splash"><img src="logo.png" alt="Omega Deli"></div></div>
+<div id="sheet"></div>
+<div id="toast" class="toast" role="status"></div>
+
+<script>
+/* ===================== CONNECT THE APP =====================
+   SUPABASE_URL: Supabase → Project Settings → Data API → Project URL
+   SUPABASE_ANON_KEY: Project Settings → API Keys → publishable key (sb_publishable_…) or legacy anon key
+   Leave SUPABASE_URL blank to run in preview mode (saves on this device only). */
+window.OMEGA_CONFIG = {
+  SUPABASE_URL: "https://uemrhodxoboegbahjvnb.supabase.co",
+  SUPABASE_ANON_KEY: "sb_publishable_Fpy9WO1a94pKCMHcAl0Sfw_SGYPcTMZ",
+  VAPID_PUBLIC_KEY: "BNXP3kiF5Q2Vf1V7KLdQ4KDM8CkcGYdYtap-6yxIB8igiT08HoK8dA49nwfiwuHulNlizW7nGabIADBgm60NzZQ"
+};
+</script>
+
+<script>
+(function () {
+'use strict';
+const CFG = window.OMEGA_CONFIG || {};
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DEF = {
+  address: '315 E Robinson St, Suite 155 · One Landmark Center (1st floor) · Orlando',
+  phone: '', hours: '', open_time: '07:00', close_time: '15:00', days_open: [1,2,3,4,5],
+  blowout_time: '14:00', announcement: '', ordering_open: true, catering_open: true,
+  catering_note: 'Please give us at least 24 hours notice for catering. We’ll confirm with a notification.',
+  pickup_lead_min: 15
+};
+const STATUS = {
+  new: ['Sent — waiting for Omega', 'amber'], accepted: ['Accepted', 'green'], ready: ['Ready for pickup', 'green'],
+  done: ['Completed', 'grey'], declined: ['Declined', 'red'], cancelled: ['Cancelled', 'grey']
+};
+const OSTATUS = { new: ['New', 'amber'], accepted: ['Accepted', 'green'], ready: ['Ready', 'green'], done: ['Done', 'grey'], declined: ['Declined', 'red'], cancelled: ['Cancelled', 'grey'] };
+const I = {
+  home: '<svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>',
+  bag: '<svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V7a3 3 0 0 1 6 0v1"/></svg>',
+  bulb: '<svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z"/></svg>',
+  store: '<svg viewBox="0 0 24 24"><path d="M4 9h16l-1.5-5h-13zM5 9v11h14V9M9.5 20v-6h5v6"/></svg>',
+  bell: '<svg viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg>',
+  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'
+};
+
+/* ---------------- helpers ---------------- */
+const ls = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const isNum = v => v !== null && v !== undefined && v !== '' && !isNaN(+v);
+const money = v => isNum(v) ? '$' + (+v).toFixed(2) : '';
+const toNum = v => { v = String(v == null ? '' : v).replace(/[$,\s]/g, ''); return v === '' || isNaN(+v) ? null : Math.round(+v * 100) / 100; };
+const toInt = v => { v = String(v == null ? '' : v).trim(); return v === '' || isNaN(parseInt(v, 10)) ? null : parseInt(v, 10); };
+const digits = s => String(s || '').replace(/\D/g, '').replace(/^1(?=\d{10}$)/, '');
+const fmtPhone = s => { const d = digits(s); return d.length === 10 ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : String(s || ''); };
+const phoneEmail = d => 'p' + d + '@phone.omegadeli.app';
+const tFmt = d => new Date(d).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+const dFmt = d => new Date(d).toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+const hm2date = (hm, base) => { const [h, m] = String(hm || '0:0').split(':').map(Number); const d = base ? new Date(base) : new Date(); d.setHours(h || 0, m || 0, 0, 0); return d; };
+const hmLabel = hm => tFmt(hm2date(hm));
+const hhmm = d => String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+const sameDay = (a, b) => new Date(a).toDateString() === new Date(b).toDateString();
+const ago = d => { const s = (Date.now() - new Date(d)) / 1000; if (s < 60) return 'just now'; if (s < 3600) return Math.floor(s / 60) + ' min ago'; if (s < 86400) return Math.floor(s / 3600) + ' hr ago'; return dFmt(d); };
+const sortBy = arr => arr.slice().sort((a, b) => (a.sort || 0) - (b.sort || 0) || (a.id > b.id ? 1 : -1));
+const isIOS = () => /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const standalone = () => navigator.standalone === true || (window.matchMedia && matchMedia('(display-mode: standalone)').matches);
+const b64u = s => { const p = '='.repeat((4 - s.length % 4) % 4); const b = atob((s + p).replace(/-/g, '+').replace(/_/g, '/')); return Uint8Array.from(b, c => c.charCodeAt(0)); };
+const daysLabel = d => { d = d || []; if (!d.length || d.length === 7) return 'Every day'; if (d.length === 5 && [1, 2, 3, 4, 5].every(x => d.includes(x))) return 'Weekdays'; return d.slice().sort().map(x => DAYS[x]).join(', '); };
+function parseOptions(txt) {
+  return String(txt || '').split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const m = l.match(/^(.*?)[\s:=\-–]*\$?(\d+(?:\.\d{1,2})?)\s*$/);
+    return m && m[1].trim() ? { label: m[1].trim(), price: +m[2] } : { label: l, price: null };
+  });
+}
+const optionsText = o => (o || []).map(x => x.label + (isNum(x.price) ? ' ' + (+x.price).toFixed(2) : '')).join('\n');
+const priceText = i => (i.options && i.options.length) ? i.options.map(o => `${esc(o.label)} ${money(o.price)}`).join(' · ') : money(i.price);
+
+async function shrink(file, max, q) {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const sc = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement('canvas'); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    return await new Promise(res => c.toBlob(res, 'image/jpeg', q));
+  } finally { URL.revokeObjectURL(url); }
+}
+function friendly(e, who) {
+  const m = (e && e.message) || String(e);
+  if (/invalid login/i.test(m)) return new Error(who === 'staff' ? 'Wrong email or password.' : 'Wrong phone number or password.');
+  if (/already (been )?registered|already exists/i.test(m)) return new Error(who === 'staff' ? 'That email is already set up — sign in instead.' : 'That number already has an account — sign in instead.');
+  if (/password should be|at least 6/i.test(m)) return new Error('Password needs at least 6 characters.');
+  if (/email not confirmed/i.test(m)) return new Error('Sign-in is blocked: turn off “Confirm email” in Supabase (see setup guide).');
+  if (/rate limit|too many/i.test(m)) return new Error('Too many tries — wait a minute and try again.');
+  return new Error(m);
+}
+
+/* ---------------- data: Supabase ---------------- */
+function supaApi(sb) {
+  const T = r => { if (r.error) throw new Error(r.error.message); return r.data; };
+  return {
+    demo: false,
+    async getSession() { const { data } = await sb.auth.getSession(); return data.session ? { id: data.session.user.id } : null; },
+    onAuth(cb) { sb.auth.onAuthStateChange((_e, s) => setTimeout(() => cb(s ? { id: s.user.id } : null), 0)); },
+    async profile(id) { return T(await sb.from('profiles').select('*').eq('id', id).maybeSingle()); },
+    async updateName(id, name) { T(await sb.from('profiles').update({ name }).eq('id', id)); },
+    async signUpPhone(name, d, pw) {
+      const r = await sb.auth.signUp({ email: phoneEmail(d), password: pw, options: { data: { name, phone: d } } });
+      if (r.error) throw friendly(r.error);
+      if (!r.data.session) throw new Error('Account made, but sign-in is blocked: turn off “Confirm email” in Supabase (see setup guide).');
+    },
+    async signIn(email, pw, who) { const r = await sb.auth.signInWithPassword({ email, password: pw }); if (r.error) throw friendly(r.error, who); },
+    async signUpStaff(email, pw, name) {
+      const r = await sb.auth.signUp({ email, password: pw, options: { data: { name } } });
+      if (r.error) throw friendly(r.error, 'staff');
+      if (!r.data.session) throw new Error('Login made, but sign-in is blocked: turn off “Confirm email” in Supabase (see setup guide).');
+    },
+    async signOut() { await sb.auth.signOut(); },
+    async staffSignupOpen() { return !!T(await sb.rpc('staff_signup_open')); },
+    async staffEmailStatus(e) { return T(await sb.rpc('staff_email_status', { e })); },
+    async loadPublic() {
+      const [s, c, i, sp, d] = await Promise.all([
+        sb.from('settings').select('data').eq('id', 1).maybeSingle(),
+        sb.from('categories').select('*').order('sort').order('id'),
+        sb.from('menu_items').select('*').order('sort').order('id'),
+        sb.from('specials').select('*').order('sort').order('id'),
+        sb.from('deals').select('*').order('created_at', { ascending: false }).limit(40)
+      ]);
+      return { settings: (T(s) || {}).data || {}, categories: T(c), items: T(i), specials: T(sp), deals: T(d) };
+    },
+    async save(table, row) {
+      const { id, ...rest } = row;
+      if (id) return T(await sb.from(table).update(rest).eq('id', id).select().single());
+      return T(await sb.from(table).insert(rest).select().single());
+    },
+    async remove(table, id) { T(await sb.from(table).delete().eq('id', id)); },
+    async saveSettings(data) { T(await sb.from('settings').update({ data, updated_at: new Date().toISOString() }).eq('id', 1)); },
+    async uploadPhoto(file) {
+      const blob = await shrink(file, 1200, 0.82);
+      const path = Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg';
+      T(await sb.storage.from('photos').upload(path, blob, { contentType: 'image/jpeg', cacheControl: '31536000' }));
+      return sb.storage.from('photos').getPublicUrl(path).data.publicUrl;
+    },
+    async placeOrder(o) { const r = T(await sb.from('orders').insert(o).select().single()); this.kick(); return r; },
+    async myOrders(uid) { return T(await sb.from('orders').select('*').eq('user_id', uid).order('created_at', { ascending: false }).limit(20)); },
+    async allOrders() {
+      const since = new Date(Date.now() - 3 * 864e5).toISOString();
+      return T(await sb.from('orders').select('*').or(`created_at.gte."${since}",status.in.(new,accepted,ready)`).order('created_at', { ascending: false }).limit(200));
+    },
+    async setOrder(id, patch) { T(await sb.from('orders').update(patch).eq('id', id)); this.kick(); },
+    async listIdeas() { return T(await sb.rpc('list_ideas')) || []; },
+    async addIdea(text) { const r = await sb.from('ideas').insert({ text }); if (r.error) throw new Error(/row-level security/i.test(r.error.message) ? 'You can suggest up to 3 ideas a day.' : r.error.message); },
+    async vote(id, on) { if (on) T(await sb.from('idea_votes').insert({ idea_id: id })); else T(await sb.from('idea_votes').delete().eq('idea_id', id)); },
+    async setIdea(id, patch) { T(await sb.from('ideas').update(patch).eq('id', id)); },
+    async delIdea(id) { T(await sb.from('ideas').delete().eq('id', id)); },
+    async notifications() { return T(await sb.from('notifications').select('id,audience,title,body,created_at').order('created_at', { ascending: false }).limit(30)); },
+    async staffEmails() {
+      const list = T(await sb.from('staff_emails').select('*').order('added_at'));
+      const claimed = T(await sb.from('profiles').select('email').in('email', list.map(x => x.email)));
+      const set = new Set(claimed.map(x => x.email));
+      return list.map(x => Object.assign(x, { claimed: set.has(x.email) }));
+    },
+    async addStaffEmail(email) { const r = await sb.from('staff_emails').insert({ email, role: 'owner' }); if (r.error) throw new Error(/duplicate/i.test(r.error.message) ? 'That email is already on the list.' : r.error.message); },
+    async removeStaffEmail(email) { T(await sb.from('staff_emails').delete().eq('email', email)); },
+    async customerCount() { const r = await sb.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'customer'); return r.count; },
+    async savePush(sub) { T(await sb.rpc('save_push_sub', { s: sub })); },
+    kick() { sb.functions.invoke('smart-action').catch(() => {}); },
+    live(cb) { try { sb.channel('omega-live').on('postgres_changes', { event: '*', schema: 'public' }, p => cb(p.table, p)).subscribe(); } catch (e) {} }
+  };
+}
+
+/* ---------------- data: preview mode (this device only) ---------------- */
+function demoApi() {
+  const K = 'omega_demo_v1';
+  const now = () => new Date().toISOString();
+  let db = ls.get(K, null) || seedDemo();
+  const save = () => ls.set(K, db);
+  let seq = Date.now();
+  const nid = () => ++seq;
+  let authCb = () => {};
+  const me = () => db.users.find(u => u.id === db.session) || null;
+  const staffU = u => !!u && (u.role === 'owner' || u.role === 'master');
+  const TBL = { categories: 'categories', menu_items: 'items', specials: 'specials', deals: 'deals' };
+  const note = (audience, title, body, user_id) => db.notifs.unshift({ id: nid(), audience, user_id: user_id || null, title, body, created_at: now() });
+  const signedUp = e => db.users.some(u => u.email === e);
+  const login = u => { db.session = u.id; save(); authCb({ id: u.id }); };
+  save();
+  return {
+    demo: true,
+    async getSession() { const u = me(); return u ? { id: u.id } : null; },
+    onAuth(cb) { authCb = cb; },
+    async profile() { const u = me(); return u && { id: u.id, role: u.role, name: u.name, phone: u.phone, email: u.email }; },
+    async updateName(id, name) { const u = me(); if (u) { u.name = name; save(); } },
+    async signUpPhone(name, d, pw) {
+      const email = phoneEmail(d);
+      if (signedUp(email)) throw new Error('That number already has an account — sign in instead.');
+      const u = { id: 'u' + nid(), email, pw, name, phone: d, role: 'customer' }; db.users.push(u); login(u);
+    },
+    async signIn(email, pw, who) { const u = db.users.find(x => x.email === email && x.pw === pw); if (!u) throw friendly({ message: 'Invalid login credentials' }, who); login(u); },
+    async signUpStaff(email, pw, name) {
+      const s = db.staff.find(x => x.email === email); if (!s) throw new Error('That email isn’t on the owner list.');
+      if (signedUp(email)) throw new Error('That email is already set up — sign in instead.');
+      const u = { id: 'u' + nid(), email, pw, name, phone: '', role: s.role }; db.users.push(u); login(u);
+    },
+    async signOut() { db.session = null; save(); authCb(null); },
+    async staffSignupOpen() { return db.staff.some(s => !signedUp(s.email)); },
+    async staffEmailStatus(e) { e = e.toLowerCase().trim(); if (!db.staff.some(s => s.email === e)) return 'not_allowed'; return signedUp(e) ? 'claimed' : 'open'; },
+    async loadPublic() {
+      return JSON.parse(JSON.stringify({ settings: db.settings, categories: sortBy(db.categories), items: sortBy(db.items), specials: sortBy(db.specials),
+        deals: db.deals.slice().sort((a, b) => (a.created_at < b.created_at ? 1 : -1)) }));
+    },
+    async save(table, row) {
+      const list = db[TBL[table]];
+      if (row.id) { const i = list.findIndex(x => x.id === row.id); list[i] = Object.assign({}, list[i], row); save(); return list[i]; }
+      const base = { categories: { sort: 0 }, menu_items: { options: [], available: true, hidden: false, sort: 0 }, specials: { days: [], active: true, sort: 0 }, deals: { active: true, notify: true } }[table];
+      const r = Object.assign({ id: nid(), created_at: now() }, base, row); list.push(r);
+      if (table === 'deals' && r.notify && r.active) note('customers', '🔥 Blowout deal: ' + r.title, [money(r.price), 'until ' + tFmt(r.ends_at)].filter(Boolean).join(' · '));
+      save(); return r;
+    },
+    async remove(table, id) {
+      db[TBL[table]] = db[TBL[table]].filter(x => x.id !== id);
+      if (table === 'categories') db.items.forEach(i => { if (i.category_id === id) i.category_id = null; });
+      save();
+    },
+    async saveSettings(data) { db.settings = data; save(); },
+    async uploadPhoto(file) { const b = await shrink(file, 640, 0.72); return await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(b); }); },
+    async placeOrder(o) {
+      const u = me(); const r = Object.assign({ id: nid(), user_id: u.id, status: 'new', created_at: now(), updated_at: now() }, o);
+      db.orders.unshift(r);
+      note('staff', (o.kind === 'catering' ? 'New catering request — ' : 'New order — ') + o.name, o.kind === 'catering' ? `${o.headcount} people · ${dFmt(o.pickup_at)}` : `pickup ${tFmt(o.pickup_at)}`);
+      save(); return r;
+    },
+    async myOrders(uid) { return db.orders.filter(o => o.user_id === uid).slice(0, 20); },
+    async allOrders() { return db.orders.slice(0, 200); },
+    async setOrder(id, patch) {
+      const o = db.orders.find(x => x.id === id); const prev = o.status; Object.assign(o, patch, { updated_at: now() });
+      if (patch.status && patch.status !== prev) {
+        const what = o.kind === 'catering' ? 'catering request' : 'order';
+        const msgs = { accepted: ['Your ' + what + ' was accepted ✅', o.kind === 'pickup' ? 'We’re on it — pickup at ' + tFmt(o.pickup_at) + '. Pay at the counter.' : 'See you ' + dFmt(o.pickup_at) + '.'],
+          ready: ['Your order is ready 🥪', 'Come grab it at the counter. Pay when you pick up.'],
+          declined: ['Sorry — we couldn’t take your ' + what, o.staff_note || 'Please stop by the counter or give us a call.'] };
+        if (msgs[o.status]) note('user', msgs[o.status][0], msgs[o.status][1], o.user_id);
+        if (o.status === 'cancelled') note('staff', 'Order cancelled — ' + o.name, 'The customer cancelled it.');
+      }
+      save();
+    },
+    async listIdeas() {
+      const u = me();
+      return db.ideas.filter(i => i.status !== 'hidden' || staffU(u)).map(i => ({ id: i.id, text: i.text, status: i.status, created_at: i.created_at,
+        votes: db.votes.filter(v => v.idea_id === i.id).length, mine: !!u && i.user_id === u.id, voted: !!u && db.votes.some(v => v.idea_id === i.id && v.user_id === u.id) }))
+        .sort((a, b) => ((a.status === 'made') - (b.status === 'made')) || b.votes - a.votes || (a.created_at < b.created_at ? 1 : -1));
+    },
+    async addIdea(text) {
+      const u = me(); if (db.ideas.filter(i => i.user_id === u.id && Date.now() - new Date(i.created_at) < 864e5).length >= 3) throw new Error('You can suggest up to 3 ideas a day.');
+      db.ideas.push({ id: nid(), text, user_id: u.id, status: 'open', created_at: now() }); save();
+    },
+    async vote(id, on) { const u = me(); db.votes = db.votes.filter(v => !(v.idea_id === id && v.user_id === u.id)); if (on) db.votes.push({ idea_id: id, user_id: u.id }); save(); },
+    async setIdea(id, patch) { Object.assign(db.ideas.find(i => i.id === id), patch); save(); },
+    async delIdea(id) { db.ideas = db.ideas.filter(i => i.id !== id); save(); },
+    async notifications() {
+      const u = me(), st = staffU(u);
+      return db.notifs.filter(n => (n.audience === 'customers' && !st) || (n.audience === 'staff' && st) || (n.audience === 'user' && u && n.user_id === u.id)).slice(0, 30);
+    },
+    async staffEmails() { return db.staff.map(s => Object.assign({}, s, { claimed: signedUp(s.email) })); },
+    async addStaffEmail(email) {
+      if (db.staff.some(s => s.email === email)) throw new Error('That email is already on the list.');
+      db.staff.push({ email, role: 'owner', locked: false, added_at: now() }); const u = db.users.find(x => x.email === email); if (u) u.role = 'owner'; save();
+    },
+    async removeStaffEmail(email) { db.staff = db.staff.filter(s => s.email !== email || s.locked); const u = db.users.find(x => x.email === email); if (u) u.role = 'customer'; save(); },
+    async customerCount() { return db.users.filter(u => u.role === 'customer').length; },
+    async savePush() {}, kick() {}, live() {}
+  };
+}
+function seedDemo() {
+  const t = new Date().toISOString(), close = hm2date(DEF.close_time);
+  const ends = close > new Date() ? close : new Date(Date.now() + 3 * 3600e3);
+  const it = (id, category_id, name, description, price, options, available) => ({ id, category_id, name, description, price, options: options || [], available: available !== false, hidden: false, sort: id, photo_url: null });
+  return {
+    session: null, users: [], orders: [], notifs: [],
+    staff: [{ email: 'omega_deli@yahoo.com', role: 'owner', locked: true }, { email: 'bjohnson0987@gmail.com', role: 'master', locked: true }],
+    settings: Object.assign({}, DEF),
+    categories: [{ id: 1, name: 'Breakfast', sort: 1 }, { id: 2, name: 'Sandwiches', sort: 2 }, { id: 3, name: 'Soups & Salads', sort: 3 }],
+    items: [
+      it(11, 1, 'Breakfast Burrito', 'Sample item — real menu coming', 7.95),
+      it(12, 1, 'Egg & Cheese Biscuit', 'Sample item', 4.5),
+      it(21, 2, 'Cuban', 'Sample item — with size choices', null, [{ label: 'Half', price: 7.5 }, { label: 'Whole', price: 10.95 }]),
+      it(22, 2, 'Turkey Club', 'Sample item — shown as sold out', 10.5, null, false),
+      it(31, 3, 'Greek Lemon Chicken Soup', 'Sample item', null, [{ label: 'Cup', price: 4.25 }, { label: 'Bowl', price: 5.95 }]),
+      it(32, 3, 'Greek Salad', 'Sample item', 9.5)
+    ],
+    specials: [{ id: 41, title: 'Chicken Souvlaki Plate', description: 'Sample special — rice and Greek salad', price: 11.95, days: [], active: true, sort: 1 }],
+    deals: [{ id: 51, title: 'Spanakopita', description: 'Sample blowout deal', price: 3, was_price: 6.5, qty_left: 4, ends_at: ends.toISOString(), active: true, notify: false, created_at: t }],
+    ideas: [{ id: 61, text: 'Lamb gyro platter on Fridays', user_id: 'x', status: 'open', created_at: t }, { id: 62, text: 'Pastitsio as a lunch special', user_id: 'x', status: 'open', created_at: t }],
+    votes: [{ idea_id: 62, user_id: 'x' }, { idea_id: 62, user_id: 'y' }, { idea_id: 61, user_id: 'y' }]
+  };
+}
+
+/* ---------------- state ---------------- */
+let api;
+const S = {
+  tab: 'home', user: null, profile: null, loaded: false, error: null, qr: false,
+  data: { settings: {}, categories: [], items: [], specials: [], deals: [] },
+  cart: ls.get('omega_cart', []), orderMode: 'pickup',
+  myOrders: [], allOrders: [], ideas: [], notifs: [], staffEmails: [], customerCount: null,
+  ownerTab: 'orders', staffOpen: false, sheet: null
+};
+const ST = () => Object.assign({}, DEF, S.data.settings || {});
+const isStaff = () => !!S.profile && (S.profile.role === 'owner' || S.profile.role === 'master');
+const pushOn = () => ls.get('omega_push', false) === true && 'Notification' in window && Notification.permission === 'granted';
+const saveCart = () => ls.set('omega_cart', S.cart);
+const cartCount = () => S.cart.reduce((n, c) => n + c.qty, 0);
+const cartTotal = () => S.cart.reduce((a, c) => { if (isNum(c.price)) a.total += c.price * c.qty; else a.unpriced = true; return a; }, { total: 0, unpriced: false });
+const newOrderCount = () => S.allOrders.filter(o => o.status === 'new').length;
+const activeDeals = () => S.data.deals.filter(d => d.active && new Date(d.ends_at) > new Date() && !(d.qty_left !== null && d.qty_left !== undefined && d.qty_left <= 0));
+const todaysSpecials = () => { const wd = new Date().getDay(); return S.data.specials.filter(s => s.active && (!s.days || !s.days.length || s.days.includes(wd))); };
+const unreadCount = () => { const t = ls.get('omega_seen', null); return t ? S.notifs.filter(n => new Date(n.created_at) > new Date(t)).length : 0; };
+function findRef(k, id) { return k === 'deal' ? S.data.deals.find(x => x.id === id) : k === 'special' ? S.data.specials.find(x => x.id === id) : S.data.items.find(x => x.id === id); }
+
+/* ---------------- loading ---------------- */
+let knownOrders = null, knownNotifs = null;
+async function refreshPublic() { try { S.data = await api.loadPublic(); } catch (e) { console.warn(e); } renderMain(); }
+async function refreshUser() {
+  const jobs = [
+    api.notifications().then(n => { S.notifs = n || []; }),
+    api.listIdeas().then(x => { S.ideas = x || []; })
+  ];
+  if (S.user) jobs.push(api.myOrders(S.user.id).then(x => { S.myOrders = x || []; })); else S.myOrders = [];
+  if (isStaff()) jobs.push(
+    api.allOrders().then(x => { S.allOrders = x || []; }),
+    api.staffEmails().then(x => { S.staffEmails = x || []; }),
+    api.customerCount().then(x => { S.customerCount = x; })
+  ); else S.allOrders = [];
+  await Promise.all(jobs.map(p => p.catch(e => console.warn(e))));
+  // new-order alerts for owners
+  if (isStaff()) {
+    if (knownOrders) S.allOrders.filter(o => o.status === 'new' && !knownOrders.has(o.id)).slice(0, 3).forEach(alertNewOrder);
+    knownOrders = new Set(S.allOrders.map(o => o.id));
+  }
+  // customer alerts (deal posted, order accepted…)
+  if (knownNotifs && !isStaff()) {
+    const fresh = S.notifs.filter(n => !knownNotifs.has(n.id));
+    if (fresh.length) { toast(fresh[0].title, { label: 'View', a: 'notifs' }); localNotify(fresh[0]); }
+  }
+  knownNotifs = new Set(S.notifs.map(n => n.id));
+  renderMain();
+}
+async function refreshStaffOpen() { try { S.staffOpen = await api.staffSignupOpen(); } catch (e) { S.staffOpen = false; } }
+async function setUser(u, force) {
+  const id = u ? u.id : null;
+  if (!force && id === (S.user ? S.user.id : null)) return;
+  S.user = u ? { id } : null;
+  S.profile = u ? await api.profile(id).catch(() => null) : null;
+  knownOrders = null; knownNotifs = null;
+  if (!isStaff() && S.tab === 'owner') S.tab = 'home';
+  await Promise.all([refreshUser(), refreshStaffOpen()]);
+  resavePush();
+  renderMain();
+}
+let liveT;
+function onLive(table) {
+  clearTimeout(liveT);
+  liveT = setTimeout(() => {
+    if (['settings', 'categories', 'menu_items', 'specials', 'deals'].includes(table)) refreshPublic();
+    if (['orders', 'notifications', 'deals'].includes(table)) refreshUser();
+  }, 350);
+}
+
+/* ---------------- alerts, sound, push ---------------- */
+let actx;
+document.addEventListener('pointerdown', () => {
+  try { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); else if (actx.state === 'suspended') actx.resume(); } catch (e) {}
+}, { capture: true });
+function chime() {
+  if (!actx) return;
+  const t0 = actx.currentTime;
+  [880, 1175, 1568].forEach((f, i) => {
+    const o = actx.createOscillator(), g = actx.createGain(), d = i * 0.17;
+    o.type = 'sine'; o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, t0 + d); g.gain.exponentialRampToValueAtTime(0.35, t0 + d + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + d + 0.16);
+    o.connect(g); g.connect(actx.destination); o.start(t0 + d); o.stop(t0 + d + 0.18);
+  });
+}
+function alertNewOrder(o) {
+  chime(); setTimeout(chime, 700);
+  try { navigator.vibrate && navigator.vibrate([200, 100, 200]); } catch (e) {}
+  toast((o.kind === 'catering' ? 'New catering request — ' : 'New order — ') + o.name, { label: 'View', a: 'tab', v: 'owner' });
+  localNotify({ title: o.kind === 'catering' ? 'New catering request' : 'New order', body: o.name });
+}
+function localNotify(n) {
+  // Only while the app is open in the background and real push isn't on (push would double up).
+  if (!document.hidden || pushOn() || !('Notification' in window) || Notification.permission !== 'granted' || !('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.getRegistration().then(r => r && r.showNotification(n.title, { body: n.body || '', icon: 'icon-192.png', tag: 'omega-local' })).catch(() => {});
+}
+async function enablePush() {
+  if (api.demo) return toast('Alerts turn on once the app is connected to the database.');
+  if (isIOS() && !standalone()) return openSheet({ type: 'install' });
+  if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) return toast('This browser can’t show alerts.');
+  if (!CFG.VAPID_PUBLIC_KEY) return toast('Alerts aren’t set up yet.');
+  try {
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') return toast('Alerts are blocked — allow them for this app in your phone’s settings.');
+    const reg = await navigator.serviceWorker.ready;
+    let sub = await reg.pushManager.getSubscription();
+    if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u(CFG.VAPID_PUBLIC_KEY) });
+    await api.savePush(sub.toJSON());
+    ls.set('omega_push', true);
+    toast(isStaff() ? 'Order alerts are on for this phone 🔔' : 'Alerts are on 🔔');
+    renderMain(); if (S.sheet) renderSheet();
+  } catch (e) { console.error(e); toast('Couldn’t turn on alerts: ' + e.message); }
+}
+async function resavePush() {
+  if (!pushOn() || api.demo || !('serviceWorker' in navigator)) return;
+  try { const reg = await navigator.serviceWorker.ready; const sub = await reg.pushManager.getSubscription(); if (sub) await api.savePush(sub.toJSON()); } catch (e) {}
+}
+let wakeLock = null;
+async function toggleWake() {
+  try {
+    if (wakeLock) { await wakeLock.release(); wakeLock = null; toast('Screen can sleep again'); }
+    else { wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; renderMain(); }); toast('Screen will stay on while this is open'); }
+  } catch (e) { toast('This phone can’t keep the screen on from here.'); }
+  renderMain();
+}
+
+/* ---------------- toast ---------------- */
+let toastT;
+function toast(msg, act) {
+  const el = document.getElementById('toast');
+  el.innerHTML = `<span>${esc(msg)}</span>${act ? `<button data-a="${act.a}" data-v="${esc(act.v || '')}">${esc(act.label)}</button>` : ''}`;
+  el.className = 'toast show';
+  clearTimeout(toastT); toastT = setTimeout(() => { el.className = 'toast'; }, 4000);
+}
+
+/* ---------------- rendering ---------------- */
+function renderMain() {
+  const root = document.getElementById('app');
+  if (S.error) { root.innerHTML = `<div class="wrap empty" style="padding-top:80px"><img src="logo.png" alt="Omega" style="width:200px;margin:0 auto 20px"><p>${esc(S.error)}</p><button class="btn" data-a="reload">Try again</button></div>`; return; }
+  if (!S.loaded) return;
+  if (S.qr) { root.innerHTML = viewQR(); return; }
+  const y = window.scrollY;
+  const views = { home: viewHome, order: viewOrder, ideas: viewIdeas, owner: viewOwner };
+  root.innerHTML = header() + banners() + `<main class="wrap">${(views[S.tab] || viewHome)()}</main>` + tabs();
+  window.scrollTo(0, y);
+}
+function header() {
+  const n = unreadCount();
+  const init = S.profile && (S.profile.name || S.profile.email || '?').trim().charAt(0).toUpperCase();
+  return `<header class="top"><div class="top-in">
+    <img class="logo" src="logo.png" alt="Omega — A Deli Restaurant" data-a="logo" draggable="false">
+    <div class="top-r">
+      <button class="icon-btn" data-a="notifs" aria-label="Notifications">${I.bell}${n ? `<span class="dot">${n > 9 ? '9+' : n}</span>` : ''}</button>
+      ${S.user ? `<button class="avatar" data-a="account" aria-label="Account">${esc(init || '•')}</button>` : `<button class="btn sm" data-a="auth">Sign in</button>`}
+    </div></div></header>`;
+}
+function banners() {
+  const s = ST();
+  return (api.demo ? `<div class="demo">Preview mode — saved on this device only until the database is connected. <a href="#" data-a="demoReset">Reset preview</a></div>` : '')
+    + (s.announcement ? `<div class="announce">${esc(s.announcement)}</div>` : '');
+}
+function tabs() {
+  const t = [['home', 'Today', I.home], ['order', 'Order', I.bag, cartCount()], ['ideas', 'Ideas', I.bulb]];
+  if (isStaff()) t.push(['owner', 'Owner', I.store, newOrderCount()]);
+  return `<nav class="tabs">${t.map(([k, l, ic, b]) => `<button class="tab ${S.tab === k ? 'on' : ''}" data-a="tab" data-v="${k}">${ic}${b ? `<span class="tb">${b}</span>` : ''}<span>${l}</span></button>`).join('')}</nav>`;
+}
+
+/* ----- Today (home) ----- */
+function viewHome() {
+  const s = ST(), deals = activeDeals(), sp = todaysSpecials(), now = new Date();
+  let h = '';
+  if (deals.length) {
+    h += `<section class="sec"><div class="sec-h"><h2>🔥 Blowout deals</h2><span class="label red">Today only</span></div>${deals.map(dealCard).join('')}</section>`;
+  } else {
+    const before = now < hm2date(s.blowout_time);
+    h += `<section class="sec"><div class="card notice"><div class="notice-ic">🔥</div><div class="grow">
+      <b>${before ? 'Blowout deals drop after lunch' : 'No blowout deals right now'}</b>
+      <p class="sub">${before ? `Check back after ${hmLabel(s.blowout_time)} for end-of-day markdowns.` : 'When we mark things down, they show up here first.'}</p>
+      ${isStaff() ? '' : pushOn() ? '<div class="sub small">✓ You’ll get an alert when deals post.</div>' : '<button class="btn sm ghost" data-a="push">🔔 Alert me when deals drop</button>'}
+    </div></div></section>`;
+  }
+  if (sp.length) h += `<section class="sec"><div class="sec-h"><h2>Today’s specials</h2><span class="label">${now.toLocaleDateString([], { weekday: 'long' })}</span></div>${sp.map(specialCard).join('')}</section>`;
+  h += menuSection();
+  if (s.catering_open) h += `<section class="sec"><div class="card cta"><div><h3>Catering for your office</h3><p class="sub">Breakfast, lunch and meetings — tell us what you need.</p></div><button class="btn" data-a="catering">Request catering</button></div></section>`;
+  return h + footer();
+}
+function dealCard(d) {
+  return `<div class="deal">
+    ${d.photo_url ? `<img class="thumb" src="${esc(d.photo_url)}" alt="" loading="lazy">` : ''}
+    <div class="grow"><div class="deal-t">${esc(d.title)}</div>${d.description ? `<div class="sub small">${esc(d.description)}</div>` : ''}
+      <div class="deal-p">${isNum(d.price) ? `<b>${money(d.price)}</b>` : ''}${isNum(d.was_price) ? `<s>${money(d.was_price)}</s>` : ''}</div>
+      <div class="deal-m">Until ${tFmt(d.ends_at)}${isNum(d.qty_left) ? ` · only ${d.qty_left} left` : ''}</div></div>
+    <button class="add" data-a="add" data-k="deal" data-id="${d.id}" aria-label="Add ${esc(d.title)}">${I.plus}</button></div>`;
+}
+function specialCard(s) {
+  return `<div class="spec" data-a="add" data-k="special" data-id="${s.id}">
+    ${s.photo_url ? `<img class="thumb" src="${esc(s.photo_url)}" alt="" loading="lazy">` : ''}
+    <div class="grow"><div class="spec-t">${esc(s.title)}</div>${s.description ? `<div class="sub small">${esc(s.description)}</div>` : ''}<div class="item-p">${money(s.price)}</div></div>
+    <button class="add" data-a="add" data-k="special" data-id="${s.id}" aria-label="Add ${esc(s.title)}">${I.plus}</button></div>`;
+}
+function menuGroups(includeHidden) {
+  const items = S.data.items.filter(i => includeHidden || !i.hidden);
+  const cats = S.data.categories;
+  const groups = cats.map(c => ({ c, list: items.filter(i => i.category_id === c.id) })).filter(g => includeHidden || g.list.length);
+  const other = items.filter(i => !cats.some(c => c.id === i.category_id));
+  if (other.length) groups.push({ c: { id: 0, name: groups.length ? 'More' : 'Menu' }, list: other });
+  return groups;
+}
+function menuSection() {
+  const groups = menuGroups(false);
+  if (!groups.length) return `<section class="sec" id="menu"><div class="sec-h"><h2>Menu</h2></div><div class="card empty sub">The full menu is being added — check back soon.</div></section>`;
+  return `<section class="sec" id="menu"><div class="sec-h"><h2>Menu</h2></div>
+    ${groups.length > 1 ? `<div class="chips sticky">${groups.map(g => `<button class="chip" data-a="jump" data-id="${g.c.id}">${esc(g.c.name)}</button>`).join('')}</div>` : ''}
+    ${groups.map(g => `<div class="cat" id="cat-${g.c.id}"><div class="label cat-h">${esc(g.c.name)}</div>${g.list.map(itemRow).join('')}</div>`).join('')}</section>`;
+}
+function itemRow(i) {
+  return `<div class="item ${i.available ? '' : 'out'}" ${i.available ? `data-a="item" data-id="${i.id}"` : ''}>
+    <div class="grow"><div class="item-n">${esc(i.name)}</div>${i.description ? `<div class="item-d">${esc(i.description)}</div>` : ''}
+      <div class="item-p">${priceText(i)}${i.available ? '' : ' <span class="pill grey">Sold out</span>'}</div></div>
+    ${i.photo_url ? `<img class="thumb" src="${esc(i.photo_url)}" alt="" loading="lazy">` : ''}
+    ${i.available ? `<button class="add" data-a="add" data-k="item" data-id="${i.id}" aria-label="Add ${esc(i.name)}">${I.plus}</button>` : ''}</div>`;
+}
+function footer() {
+  const s = ST();
+  return `<footer class="foot"><img src="logo.png" alt="" class="foot-logo">
+    <div>${esc(s.address)}</div>${s.hours ? `<div>${esc(s.hours)}</div>` : ''}
+    ${s.phone ? `<div><a href="tel:${esc(digits(s.phone))}">${esc(s.phone)}</a></div>` : ''}
+    ${S.staffOpen && !isStaff() ? `<div class="small" style="margin-top:8px"><a href="#" data-a="staffSetup">Owner setup</a></div>` : ''}</footer>`;
+}
+
+/* ----- Order ----- */
+function viewOrder() {
+  return `<div class="seg"><button class="${S.orderMode === 'pickup' ? 'on' : ''}" data-a="mode" data-v="pickup">Order ahead</button><button class="${S.orderMode === 'catering' ? 'on' : ''}" data-a="mode" data-v="catering">Catering</button></div>
+    ${S.orderMode === 'pickup' ? viewPickup() : viewCatering()}${viewMyOrders()}`;
+}
+function pickupSlots() {
+  const s = ST(), lead = (+s.pickup_lead_min || 15) * 60000;
+  for (let off = 0; off < 8; off++) {
+    const day = new Date(); day.setDate(day.getDate() + off);
+    if (!(s.days_open || []).includes(day.getDay())) continue;
+    const open = hm2date(s.open_time, day), close = hm2date(s.close_time, day);
+    let t = new Date(Math.max(+open, Date.now() + lead)); t.setSeconds(0, 0);
+    const m = t.getMinutes() % 15; if (m) t = new Date(+t + (15 - m) * 60000);
+    const list = [];
+    while (t < close) { list.push(new Date(t)); t = new Date(+t + 15 * 60000); }
+    if (list.length) return { label: off === 0 ? 'Today' : off === 1 ? 'Tomorrow' : day.toLocaleDateString([], { weekday: 'long' }), list };
+  }
+  return { label: '', list: [] };
+}
+function viewPickup() {
+  const s = ST();
+  if (!s.ordering_open) return `<div class="card notice"><div class="notice-ic">⏸️</div><div><b>Order ahead is paused right now.</b><p class="sub">Stop by the counter — we’re happy to help.</p></div></div>`;
+  if (!S.cart.length) return `<div class="card empty"><p><b>Your order is empty.</b></p><p class="sub">Add items from today’s deals, specials and the menu.</p><button class="btn ghost" data-a="tab" data-v="home" style="margin-top:8px">Browse the menu</button></div>`;
+  const { total, unpriced } = cartTotal(), sl = pickupSlots();
+  return `<div class="card">${S.cart.map(cartLine).join('')}
+      <div class="tot"><span>Estimated total</span><b>${money(total)}</b></div>
+      <div class="sub small">Before tax${unpriced ? ' · some items priced at the counter' : ''}. <b>You pay at the counter</b> when you pick up.</div></div>
+    <form data-f="pickup" class="card">
+      <label class="fld"><span>Name for the order</span><input name="name" required maxlength="40" autocomplete="given-name" value="${esc(S.profile && S.profile.name || '')}"></label>
+      ${sl.list.length ? `<label class="fld"><span>Pickup time · ${esc(sl.label)}</span><select name="when">${sl.list.map((t, i) => `<option value="${t.toISOString()}">${i === 0 && sl.label === 'Today' ? 'Soonest · ' : ''}${tFmt(t)}</option>`).join('')}</select></label>`
+        : '<p class="sub">Pickup times aren’t available right now.</p>'}
+      <label class="fld"><span>Notes (optional)</span><textarea name="notes" rows="2" maxlength="300" placeholder="Anything we should know?"></textarea></label>
+      ${S.user ? `<button class="btn block" ${sl.list.length ? '' : 'disabled'}>Send order</button>` : '<button type="button" class="btn block" data-a="auth">Sign in to send order</button>'}
+      <p class="err" hidden></p></form>`;
+}
+function cartLine(c) {
+  return `<div class="line"><div class="grow"><b>${esc(c.name)}</b>${c.option ? ` <span class="sub">(${esc(c.option)})</span>` : ''}${c.k === 'deal' ? ' <span class="pill red">Deal</span>' : ''}${c.note ? `<div class="sub small">${esc(c.note)}</div>` : ''}</div>
+    <div class="qty sm"><button data-a="cq" data-key="${esc(c.key)}" data-d="-1" aria-label="Less">−</button><span>${c.qty}</span><button data-a="cq" data-key="${esc(c.key)}" data-d="1" aria-label="More">+</button></div>
+    <div class="line-p">${isNum(c.price) ? money(c.price * c.qty) : ''}</div></div>`;
+}
+function viewCatering() {
+  const s = ST();
+  if (!s.catering_open) return `<div class="card notice"><div class="notice-ic">⏸️</div><div><b>Catering requests are paused right now.</b><p class="sub">Please stop by the counter or give us a call.</p></div></div>`;
+  const { total } = cartTotal(), today = new Date(), min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  return `<div class="card notice"><div class="notice-ic">🍽️</div><div><b>Catering request</b><p class="sub">${esc(s.catering_note)}</p></div></div>
+    <form data-f="catering" class="card">
+      <label class="fld"><span>Your name</span><input name="name" required maxlength="40" value="${esc(S.profile && S.profile.name || '')}"></label>
+      <label class="fld"><span>Company / firm</span><input name="company" maxlength="80" autocomplete="organization"></label>
+      <label class="fld"><span>Floor &amp; suite</span><input name="location" maxlength="80" placeholder="e.g. 14th floor, Suite 1400"></label>
+      <div class="two"><label class="fld"><span>Date</span><input type="date" name="date" required min="${min}"></label><label class="fld"><span>Time</span><input type="time" name="time" required value="11:30"></label></div>
+      <label class="fld"><span>How many people?</span><input name="headcount" inputmode="numeric" required placeholder="e.g. 20"></label>
+      <div class="fld"><span>Pickup or delivered?</span>
+        <label class="check"><input type="radio" name="delivery" value="0" checked> We’ll pick it up at the counter</label>
+        <label class="check"><input type="radio" name="delivery" value="1"> Bring it to our office</label></div>
+      <label class="fld"><span>What would you like?</span><textarea name="notes" rows="3" maxlength="800" placeholder="e.g. sandwich platter, Greek salad, cookies, drinks"></textarea></label>
+      ${S.cart.length ? `<label class="check"><input type="checkbox" name="usecart" checked> Include the ${cartCount()} item${cartCount() === 1 ? '' : 's'} in my order (est. ${money(total)})</label>` : ''}
+      ${S.user ? '<button class="btn block">Send catering request</button>' : '<button type="button" class="btn block" data-a="auth">Sign in to send request</button>'}
+      <p class="err" hidden></p></form>`;
+}
+function viewMyOrders() {
+  if (!S.user || !S.myOrders.length) return '';
+  return `<section class="sec" id="myorders"><div class="sec-h"><h2>My orders</h2></div>${S.myOrders.slice(0, 10).map(o => {
+    const st = STATUS[o.status] || [o.status, 'grey'], cat = o.kind === 'catering';
+    const items = (o.items || []).map(i => `${i.qty}× ${esc(i.name)}`).join(', ');
+    return `<div class="card"><div class="row between gap"><b>${cat ? 'Catering' : 'Pickup'} · ${cat ? dFmt(o.pickup_at) + ' ' + tFmt(o.pickup_at) : o.pickup_at ? tFmt(o.pickup_at) : 'ASAP'}</b><span class="pill ${st[1]}">${st[0]}</span></div>
+      ${items ? `<div class="mine-o">${items}</div>` : ''}${cat && o.headcount ? `<div class="sub small">${o.headcount} people</div>` : ''}
+      ${+o.est_total ? `<div class="sub small">Est. ${money(o.est_total)} · pay at the counter</div>` : ''}
+      ${o.staff_note ? `<div class="ord-notes">Omega: ${esc(o.staff_note)}</div>` : ''}
+      <div class="sub small">Sent ${ago(o.created_at)}</div>
+      ${o.status === 'new' ? `<div class="acts"><button class="btn sm ghost" data-a="cancelOrder" data-id="${o.id}">Cancel</button></div>` : ''}</div>`;
+  }).join('')}</section>`;
+}
+
+/* ----- Ideas ----- */
+function viewIdeas() {
+  return `<section class="sec"><h2>Special of the day ideas</h2>
+    <p class="sub">What should Omega make next? Ideas are anonymous — tap ▲ to upvote the ones you want.</p>
+    ${S.user ? `<form data-f="idea"><div class="idea-f"><input name="text" maxlength="140" minlength="3" required placeholder="e.g. Lamb gyro Fridays"><button class="btn">Suggest</button></div><p class="err" hidden></p></form>`
+      : `<button class="btn block ghost" data-a="auth" style="margin:14px 0 4px">Sign in to suggest &amp; vote</button>`}
+    <div>${S.ideas.length ? S.ideas.map(i => `<div class="idea ${i.status}">
+        <button class="vote ${i.voted ? 'on' : ''}" data-a="vote" data-id="${i.id}" aria-label="Upvote">▲<b>${i.votes}</b></button>
+        <div class="grow idea-t">${esc(i.text)}${i.status === 'made' ? ' <span class="pill green">Made it!</span>' : ''}${i.status === 'hidden' ? ' <span class="pill grey">Hidden</span>' : ''}${i.mine ? ' <span class="sub small">· yours</span>' : ''}</div></div>`).join('')
+      : '<div class="card empty sub" style="margin-top:14px">No ideas yet — be the first.</div>'}</div></section>`;
+}
+
+/* ----- Owner ----- */
+function viewOwner() {
+  if (!isStaff()) return '';
+  const t = [['orders', 'Orders', newOrderCount()], ['deals', 'Deals'], ['specials', 'Specials'], ['menu', 'Menu'], ['ideas', 'Ideas'], ['settings', 'Settings']];
+  const v = { orders: oOrders, deals: oDeals, specials: oSpecials, menu: oMenu, ideas: oIdeas, settings: oSettings }[S.ownerTab] || oOrders;
+  return `<div class="chips">${t.map(([k, l, b]) => `<button class="chip ${S.ownerTab === k ? 'on' : ''}" data-a="otab" data-v="${k}">${l}${b ? `<span class="cnt">${b}</span>` : ''}</button>`).join('')}</div>${v()}`;
+}
+function oOrders() {
+  const all = S.allOrders, today = new Date();
+  const nw = all.filter(o => o.status === 'new').reverse();
+  const prog = all.filter(o => o.status === 'accepted' || o.status === 'ready').sort((a, b) => new Date(a.pickup_at || a.created_at) - new Date(b.pickup_at || b.created_at));
+  const done = all.filter(o => ['done', 'declined', 'cancelled'].includes(o.status) && sameDay(o.updated_at || o.created_at, today));
+  return `${pushOn() ? '' : `<div class="card notice"><div class="notice-ic">🔔</div><div><b>Turn on order alerts</b><p class="sub small">Get a notification on this phone for every new order and catering request.</p><button class="btn sm" data-a="push">Turn on alerts</button></div></div>`}
+    <div class="sec-h" style="margin-top:14px"><h2>Needs a response</h2>${'wakeLock' in navigator ? `<button class="btn sm ghost" data-a="wake">${wakeLock ? '☀️ Screen on' : 'Keep screen on'}</button>` : ''}</div>
+    ${nw.length ? nw.map(orderCard).join('') : '<p class="sub">Nothing waiting. New orders pop up here with a chime.</p>'}
+    ${prog.length ? `<div class="sec-h" style="margin-top:22px"><h2>In progress</h2></div>${prog.map(orderCard).join('')}` : ''}
+    ${done.length ? `<div class="sec-h" style="margin-top:22px"><h2>Finished today</h2></div>${done.map(orderCard).join('')}` : ''}`;
+}
+function orderCard(o) {
+  const cat = o.kind === 'catering', st = OSTATUS[o.status] || [o.status, 'grey'];
+  const when = cat ? `${o.pickup_at ? dFmt(o.pickup_at) + ' · ' + tFmt(o.pickup_at) : 'Date TBD'} · ${o.headcount || '?'} people`
+    : `Pickup ${o.pickup_at ? (sameDay(o.pickup_at, new Date()) ? '' : dFmt(o.pickup_at) + ' ') + tFmt(o.pickup_at) : 'ASAP'}`;
+  let btns = '';
+  if (o.status === 'new') btns = `<button class="btn green" data-a="ost" data-id="${o.id}" data-v="accepted">Accept</button><button class="btn ghost" data-a="decline" data-id="${o.id}">Decline</button>`;
+  else if (o.status === 'accepted' && !cat) btns = `<button class="btn" data-a="ost" data-id="${o.id}" data-v="ready">Mark ready</button><button class="btn ghost" data-a="ost" data-id="${o.id}" data-v="done">Picked up</button>`;
+  else if (o.status === 'accepted' && cat) btns = `<button class="btn ghost" data-a="ost" data-id="${o.id}" data-v="done">Mark done</button>`;
+  else if (o.status === 'ready') btns = `<button class="btn ghost" data-a="ost" data-id="${o.id}" data-v="done">Picked up</button>`;
+  return `<div class="card ord ${o.status === 'new' ? 'new' : ''}">
+    <div class="row between gap"><span class="pill ${cat ? 'blue' : 'dark'}">${cat ? 'Catering' : 'Pickup'}</span><span class="pill ${st[1]}">${st[0]}</span></div>
+    <div class="ord-n">${esc(o.name)}${o.phone ? ` · <a href="tel:${esc(digits(o.phone))}">${esc(fmtPhone(o.phone))}</a>` : ''}</div>
+    <div class="ord-when">${when}</div>
+    ${cat ? `<div class="small">${[o.company, o.location, o.delivery ? 'Bring to office' : 'Pick up at counter'].filter(Boolean).map(esc).join(' · ')}</div>` : ''}
+    ${(o.items || []).length ? `<ul class="ord-items">${o.items.map(i => `<li>${i.qty}× ${esc(i.name)}${i.note ? ` <i class="sub">— ${esc(i.note)}</i>` : ''}<span>${isNum(i.price) ? money(i.price * i.qty) : ''}</span></li>`).join('')}</ul>` : ''}
+    ${o.notes ? `<div class="ord-notes">“${esc(o.notes)}”</div>` : ''}
+    ${+o.est_total ? `<div class="tot sm"><span>Est. total (before tax)</span><b>${money(o.est_total)}</b></div>` : ''}
+    ${o.staff_note ? `<div class="sub small">Your note: ${esc(o.staff_note)}</div>` : ''}
+    <div class="sub small">Sent ${ago(o.created_at)}</div>
+    ${btns ? `<div class="acts">${btns}</div>` : ''}</div>`;
+}
+function oDeals() {
+  const act = activeDeals(), past = S.data.deals.filter(d => !act.includes(d)).slice(0, 12);
+  return `<button class="btn block red" data-a="dealForm" style="margin-top:6px">+ Post a blowout deal</button>
+    <p class="sub small">Deals show at the top of the app and disappear on their own when they end or sell out.</p>
+    <div class="sec-h" style="margin-top:18px"><h2>Live now</h2></div>
+    ${act.length ? act.map(d => `<div class="arow"><div class="grow" data-a="dealForm" data-id="${d.id}"><b>${esc(d.title)}</b> <span class="sub">${money(d.price)}${isNum(d.was_price) ? ` <s>${money(d.was_price)}</s>` : ''}</span>
+        <div class="sub small">Until ${tFmt(d.ends_at)}${isNum(d.qty_left) ? ` · ${d.qty_left} left` : ''}</div></div>
+        ${isNum(d.qty_left) ? `<button class="mini" data-a="dealDec" data-id="${d.id}">−1</button>` : ''}
+        <button class="btn sm ghost" data-a="dealEnd" data-id="${d.id}">End</button></div>`).join('')
+      : `<p class="sub">No live deals. Customers see “check back after ${hmLabel(ST().blowout_time)}”.</p>`}
+    ${past.length ? `<div class="sec-h" style="margin-top:22px"><h2>Recent</h2></div>${past.map(d => `<div class="arow dimmed"><div class="grow"><b>${esc(d.title)}</b> <span class="sub">${money(d.price)}</span><div class="sub small">${dFmt(d.created_at)}</div></div>
+        <button class="btn sm ghost" data-a="dealAgain" data-id="${d.id}">Post again</button><button class="mini" data-a="dealDel" data-id="${d.id}" aria-label="Delete">✕</button></div>`).join('')}` : ''}`;
+}
+function oSpecials() {
+  return `<button class="btn block" data-a="specialForm" style="margin-top:6px">+ Add a special</button>
+    <p class="sub small">Specials show on the Today screen on the days you pick. Flip the switch to hide one.</p>
+    ${S.data.specials.length ? S.data.specials.map(sp => `<div class="arow ${sp.active ? '' : 'dim'}"><div class="grow" data-a="specialForm" data-id="${sp.id}"><b>${esc(sp.title)}</b> <span class="sub">${money(sp.price)}</span><div class="sub small">${daysLabel(sp.days)}</div></div>
+        <label class="tgl" aria-label="Show"><input type="checkbox" data-ch="spActive" data-id="${sp.id}" ${sp.active ? 'checked' : ''}><span></span></label></div>`).join('')
+      : '<p class="sub">No specials yet.</p>'}`;
+}
+function oMenu() {
+  const groups = menuGroups(true);
+  return `<div class="row gap" style="margin-top:6px"><button class="btn grow" data-a="itemForm">+ Add item</button><button class="btn ghost" data-a="catForm">+ Category</button></div>
+    <p class="sub small">Tap an item to edit it. “In stock / Sold out” flips instantly.</p>
+    ${groups.length ? groups.map((g, gi) => `<div class="row between acat"><span class="label">${esc(g.c.name)}</span>${g.c.id ? `<div class="row gap">
+        <button class="mini" data-a="catMove" data-id="${g.c.id}" data-d="-1" aria-label="Move up" ${gi === 0 ? 'disabled' : ''}>↑</button><button class="mini" data-a="catMove" data-id="${g.c.id}" data-d="1" aria-label="Move down">↓</button><button class="mini" data-a="catForm" data-id="${g.c.id}">Edit</button></div>` : ''}</div>
+      ${g.list.length ? g.list.map(i => `<div class="arow ${i.hidden ? 'dim' : ''}"><div class="grow" data-a="itemForm" data-id="${i.id}"><b>${esc(i.name)}</b>${i.hidden ? ' <span class="pill grey">Hidden</span>' : ''}<div class="sub small">${priceText(i) || 'No price'}</div></div>
+          <button class="mini" data-a="itemMove" data-id="${i.id}" data-d="-1" aria-label="Move up">↑</button>
+          <button class="stock ${i.available ? '' : 'out'}" data-a="avail" data-id="${i.id}">${i.available ? 'In stock' : 'Sold out'}</button></div>`).join('') : '<p class="sub small">No items in this category.</p>'}`).join('')
+      : '<div class="card empty sub" style="margin-top:12px">No menu yet. Add a category, then items.</div>'}`;
+}
+function oIdeas() {
+  return `<p class="sub small" style="margin-top:6px">Customers suggest specials anonymously and upvote them. Turn a good one into a special in one tap.</p>
+    ${S.ideas.length ? S.ideas.map(i => `<div class="arow ${i.status === 'hidden' ? 'dim' : ''}"><div class="mini" style="display:grid;place-items:center">▲${i.votes}</div>
+      <div class="grow">${esc(i.text)}${i.status === 'made' ? ' <span class="pill green">Made it</span>' : ''}${i.status === 'hidden' ? ' <span class="pill grey">Hidden</span>' : ''}</div>
+      ${i.status !== 'made' ? `<button class="btn sm ghost" data-a="ideaSpecial" data-id="${i.id}">Make special</button>` : ''}
+      <button class="mini" data-a="ideaSt" data-id="${i.id}" data-v="${i.status === 'hidden' ? 'open' : 'hidden'}">${i.status === 'hidden' ? 'Show' : 'Hide'}</button>
+      <button class="mini" data-a="ideaDel" data-id="${i.id}" aria-label="Delete">✕</button></div>`).join('') : '<p class="sub">No ideas yet.</p>'}`;
+}
+function oSettings() {
+  const s = ST();
+  const dayChecks = DAYS.map((d, i) => `<label><input type="checkbox" name="days_open" value="${i}" ${(s.days_open || []).includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('');
+  return `<form data-f="settings" class="card" style="margin-top:6px"><h3>What customers see</h3>
+      <label class="fld"><span>Announcement banner (optional)</span><input name="announcement" maxlength="140" value="${esc(s.announcement)}" placeholder="e.g. Closed Friday for the holiday"></label>
+      <label class="fld"><span>Blowout deals usually post after</span><input type="time" name="blowout_time" value="${esc(s.blowout_time)}"></label>
+      <div class="two"><label class="fld"><span>Opens</span><input type="time" name="open_time" value="${esc(s.open_time)}"></label><label class="fld"><span>Closes</span><input type="time" name="close_time" value="${esc(s.close_time)}"></label></div>
+      <div class="fld"><span>Days open</span><div class="days">${dayChecks}</div></div>
+      <label class="fld"><span>Hours (shown at the bottom)</span><input name="hours" maxlength="80" value="${esc(s.hours)}" placeholder="e.g. Mon–Fri 7 AM – 3 PM"></label>
+      <label class="fld"><span>Phone</span><input name="phone" inputmode="tel" maxlength="20" value="${esc(s.phone)}" placeholder="(407) 555-0123"></label>
+      <label class="fld"><span>Address</span><input name="address" maxlength="140" value="${esc(s.address)}"></label>
+      <h3 style="margin-top:18px">Ordering</h3>
+      <label class="check"><input type="checkbox" name="ordering_open" ${s.ordering_open ? 'checked' : ''}> Order ahead is on</label>
+      <label class="check"><input type="checkbox" name="catering_open" ${s.catering_open ? 'checked' : ''}> Catering requests are on</label>
+      <label class="fld"><span>Catering note</span><textarea name="catering_note" rows="2" maxlength="300">${esc(s.catering_note)}</textarea></label>
+      <label class="fld"><span>Earliest pickup (minutes from now)</span><input name="pickup_lead_min" inputmode="numeric" value="${esc(s.pickup_lead_min)}"></label>
+      <button class="btn block">Save settings</button><p class="err" hidden></p></form>
+    <div class="card"><h3>Owner logins</h3>
+      ${S.staffEmails.map(e => `<div class="arow"><div class="grow"><b style="word-break:break-all">${esc(e.email)}</b><div class="sub small">${e.role === 'master' ? 'App admin' : 'Owner'} · ${e.claimed ? 'Signed up ✓' : 'Waiting to sign up'}</div></div>
+        ${e.locked ? '' : `<button class="btn sm ghost" data-a="rmStaff" data-v="${esc(e.email)}">Remove</button>`}</div>`).join('')}
+      <form data-f="staffAdd"><div class="idea-f"><input name="email" type="email" required placeholder="Add an owner email (e.g. your wife’s)"><button class="btn">Add</button></div><p class="err" hidden></p></form>
+      <p class="sub small">Once every email here has signed up, the owner sign-up link disappears from the app. To sign in on a new phone, tap the Omega logo 5 times.</p></div>
+    <div class="card"><h3>Counter QR code</h3><p class="sub small">Customers scan it to open the app — no sign-up needed to see deals and the menu.</p><button class="btn ghost" data-a="qr">Show printable QR sign</button></div>
+    <div class="card row between"><div><h3>Customers</h3><div class="sub">${S.customerCount == null ? '—' : S.customerCount} signed up</div></div><button class="btn ghost sm" data-a="signout">Sign out</button></div>`;
+}
+function viewQR() {
+  const url = location.origin + location.pathname;
+  const src = 'https://api.qrserver.com/v1/create-qr-code/?size=720x720&margin=12&data=' + encodeURIComponent(url);
+  return `<div class="qrpage"><img class="qr-logo" src="logo.png" alt="Omega — A Deli Restaurant"><img class="qr" src="${src}" alt="QR code for ${esc(url)}">
+    <div class="qr-h">Scan for today’s specials,<br>blowout deals &amp; menu</div><div class="qr-s">Order ahead · Catering · No sign-up needed to look</div>
+    <div class="qr-u">${esc(url.replace(/^https?:\/\//, '').replace(/\/$/, ''))}</div>
+    <div class="noprint row gap" style="margin-top:10px"><button class="btn" data-a="print">Print</button><button class="btn ghost" data-a="qrClose">Done</button></div></div>`;
+}
+
+/* ---------------- sheets ---------------- */
+const SHEETS = {
+  auth(sh) {
+    const up = sh.mode === 'up';
+    return `<div class="seg"><button type="button" class="${up ? 'on' : ''}" data-a="authMode" data-v="up">Create account</button><button type="button" class="${up ? '' : 'on'}" data-a="authMode" data-v="in">Sign in</button></div>
+      <form data-f="auth" data-mode="${up ? 'up' : 'in'}">
+        ${up ? '<label class="fld"><span>First name</span><input name="name" required maxlength="40" autocomplete="given-name"></label>' : ''}
+        <label class="fld"><span>Mobile number</span><input name="phone" type="tel" inputmode="tel" required autocomplete="tel" placeholder="(407) 555-0123"></label>
+        <label class="fld"><span>Password</span><input name="pw" type="password" required minlength="6" autocomplete="${up ? 'new-password' : 'current-password'}" placeholder="6+ characters"></label>
+        <button class="btn block">${up ? 'Create account' : 'Sign in'}</button><p class="err" hidden></p>
+        <p class="sub small center">${up ? 'No codes, no emails — you’ll stay signed in on this phone.' : 'Forgot your password? Let us know at the counter.'}</p></form>`;
+  },
+  staff(sh) {
+    const up = sh.mode === 'up';
+    return `<h3>${up ? 'Create your owner login' : 'Owner sign-in'}</h3>
+      <form data-f="staff" data-mode="${up ? 'up' : 'in'}">
+        <label class="fld"><span>Email</span><input name="email" type="email" required autocomplete="username" autocapitalize="none"></label>
+        ${up ? '<label class="fld"><span>Your name</span><input name="name" required maxlength="40"></label>' : ''}
+        <label class="fld"><span>Password</span><input name="pw" type="password" required minlength="6" autocomplete="${up ? 'new-password' : 'current-password'}" placeholder="6+ characters"></label>
+        <button class="btn block">${up ? 'Create owner login' : 'Sign in'}</button><p class="err" hidden></p></form>
+      ${S.staffOpen ? `<p class="center small" style="margin-top:14px"><a href="#" data-a="staffMode" data-v="${up ? 'in' : 'up'}">${up ? 'Already set up? Sign in' : 'First time? Create your owner login'}</a></p>` : ''}`;
+  },
+  account() {
+    const p = S.profile || {};
+    return `<h3>${esc(p.name || 'Your account')}</h3><p class="sub" style="margin-top:0">${p.phone ? esc(fmtPhone(p.phone)) : esc(p.email || '')}${isStaff() ? ' · Owner access' : ''}</p>
+      <form data-f="name"><label class="fld"><span>Name</span><input name="name" required maxlength="40" value="${esc(p.name || '')}"></label><button class="btn ghost sm">Save name</button><p class="err" hidden></p></form>
+      <div style="margin-top:18px"><button class="btn ghost block" data-a="push">${pushOn() ? '🔔 Alerts are on' : '🔔 Turn on alerts'}</button>
+      ${S.myOrders.length ? '<button class="btn ghost block" data-a="gotoOrders">My orders</button>' : ''}
+      <button class="btn ghost block" data-a="signout">Sign out</button></div>`;
+  },
+  notifs() {
+    return `<h3>Notifications</h3>
+      ${pushOn() ? '<p class="sub small" style="margin-top:0">✓ Alerts are on for this phone.</p>' : `<div class="card notice"><div class="grow"><b>Get alerts on your phone</b><p class="sub small">${isStaff() ? 'New orders and catering requests.' : 'Blowout deals and updates on your orders.'}</p><button class="btn sm" data-a="push">Turn on alerts</button></div></div>`}
+      ${S.notifs.length ? S.notifs.map(n => `<div class="nt"><b>${esc(n.title)}</b>${n.body ? `<div class="sub">${esc(n.body)}</div>` : ''}<div class="sub small">${ago(n.created_at)}</div></div>`).join('')
+        : '<p class="sub">Nothing yet. Deals and order updates will show up here.</p>'}`;
+  },
+  install() {
+    return `<h3>Turn on alerts on iPhone</h3><p class="sub" style="margin-top:0">iPhones only allow alerts from apps on your home screen. It takes 10 seconds:</p>
+      <ol class="steps"><li>Tap the <b>Share</b> button <span class="sub">(square with an arrow)</span> in Safari</li><li>Choose <b>Add to Home Screen</b>, then <b>Add</b></li><li>Open <b>Omega Deli</b> from your home screen and tap <b>Turn on alerts</b></li></ol>
+      <button class="btn block" data-a="close">Got it</button>`;
+  },
+  item(sh) {
+    const r = findRef('item', sh.id); if (!r) return '<p>Not found.</p>';
+    const opts = r.options || [];
+    return `<form data-f="addItem">${r.photo_url ? `<img class="bigimg" src="${esc(r.photo_url)}" alt="" style="margin-bottom:12px">` : ''}<h3>${esc(r.name)}</h3>${r.description ? `<p class="sub" style="margin-top:0">${esc(r.description)}</p>` : ''}
+      ${opts.length ? opts.map((o, i) => `<label class="opt"><input type="radio" name="opt" value="${i}" ${i === 0 ? 'checked' : ''}><span>${esc(o.label)}</span><b>${money(o.price)}</b></label>`).join('') : `<p><b>${money(r.price)}</b></p>`}
+      <label class="fld" style="margin-top:12px"><span>Special instructions (optional)</span><input name="note" maxlength="120" placeholder="e.g. no onions"></label>
+      <div class="addrow"><div class="qty"><button type="button" data-a="sqty" data-d="-1" aria-label="Less">−</button><input name="qty" value="1" readonly aria-label="Quantity"><button type="button" data-a="sqty" data-d="1" aria-label="More">+</button></div><button class="btn grow">Add to order</button></div></form>`;
+  },
+  decline(sh) {
+    return `<h3>Decline this ${findOrder(sh.id) && findOrder(sh.id).kind === 'catering' ? 'catering request' : 'order'}?</h3>
+      <form data-f="decline"><label class="fld"><span>Message to the customer (optional)</span><textarea name="note" rows="2" maxlength="200" placeholder="e.g. Sorry, we’re out of Cubans today"></textarea></label>
+      <button class="btn block red">Decline</button><p class="err" hidden></p></form>`;
+  },
+  deal(sh) {
+    const d = sh.id ? S.data.deals.find(x => x.id === sh.id) || {} : sh.from || {}, s = ST();
+    const ends = sh.id && d.ends_at ? hhmm(new Date(d.ends_at)) : s.close_time;
+    return `<form data-f="deal"><h3>${sh.id ? 'Edit deal' : 'Post a blowout deal'}</h3>
+      ${!sh.id && S.data.items.length ? `<label class="fld"><span>Start from a menu item (optional)</span><select name="from" data-ch="dealFrom"><option value="">—</option>${S.data.items.map(i => `<option value="${i.id}">${esc(i.name)}</option>`).join('')}</select></label>` : ''}
+      <label class="fld"><span>What’s on sale</span><input name="title" required maxlength="60" value="${esc(d.title || '')}"></label>
+      <div class="two"><label class="fld"><span>Deal price</span><input name="price" inputmode="decimal" required value="${isNum(d.price) ? (+d.price).toFixed(2) : ''}" placeholder="0.00"></label>
+        <label class="fld"><span>Regular price</span><input name="was_price" inputmode="decimal" value="${isNum(d.was_price) ? (+d.was_price).toFixed(2) : ''}" placeholder="optional"></label></div>
+      <div class="two"><label class="fld"><span>How many left</span><input name="qty_left" inputmode="numeric" value="${isNum(d.qty_left) ? d.qty_left : ''}" placeholder="optional"></label>
+        <label class="fld"><span>Ends at</span><input type="time" name="ends" required value="${esc(ends)}"></label></div>
+      <label class="fld"><span>Details (optional)</span><input name="description" maxlength="120" value="${esc(d.description || '')}"></label>
+      ${photoField(d.photo_url)}
+      ${sh.id ? '' : '<label class="check"><input type="checkbox" name="notify" checked> Send an alert to customers</label>'}
+      <button class="btn block red">${sh.id ? 'Save deal' : 'Post deal'}</button><p class="err" hidden></p>
+      ${sh.id ? `<button type="button" class="btn block ghost" data-a="dealDel" data-id="${sh.id}" style="margin-top:10px">Delete deal</button>` : ''}</form>`;
+  },
+  special(sh) {
+    const sp = sh.id ? S.data.specials.find(x => x.id === sh.id) || {} : { title: sh.title || '', days: [], active: true };
+    const days = sp.days || [];
+    return `<form data-f="special"><h3>${sh.id ? 'Edit special' : 'Add a special'}</h3>
+      <label class="fld"><span>Name</span><input name="title" required maxlength="60" value="${esc(sp.title || '')}"></label>
+      <label class="fld"><span>Description (optional)</span><input name="description" maxlength="140" value="${esc(sp.description || '')}"></label>
+      <label class="fld"><span>Price</span><input name="price" inputmode="decimal" value="${isNum(sp.price) ? (+sp.price).toFixed(2) : ''}" placeholder="0.00"></label>
+      <div class="fld"><span>Days (none picked = every day)</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="days" value="${i}" ${days.includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div></div>
+      ${photoField(sp.photo_url)}
+      <label class="check"><input type="checkbox" name="active" ${sp.active !== false ? 'checked' : ''}> Show it</label>
+      <button class="btn block">${sh.id ? 'Save special' : 'Add special'}</button><p class="err" hidden></p>
+      ${sh.id ? `<button type="button" class="btn block ghost" data-a="specialDel" data-id="${sh.id}" style="margin-top:10px">Delete special</button>` : ''}</form>`;
+  },
+  itemEdit(sh) {
+    const it = sh.id ? S.data.items.find(x => x.id === sh.id) || {} : { available: true, options: [] };
+    return `<form data-f="item"><h3>${sh.id ? 'Edit item' : 'Add a menu item'}</h3>
+      <label class="fld"><span>Name</span><input name="name" required maxlength="60" value="${esc(it.name || '')}"></label>
+      <label class="fld"><span>Category</span><select name="category_id"><option value="">No category</option>${S.data.categories.map(c => `<option value="${c.id}" ${c.id === it.category_id || (!sh.id && c.id === sh.cat) ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}</select></label>
+      <label class="fld"><span>Price</span><input name="price" inputmode="decimal" value="${isNum(it.price) ? (+it.price).toFixed(2) : ''}" placeholder="0.00"></label>
+      <label class="fld"><span>Sizes / choices (optional — one per line, name then price)</span><textarea name="options" rows="3" placeholder="Cup 4.25&#10;Bowl 5.95">${esc(optionsText(it.options))}</textarea></label>
+      <label class="fld"><span>Description (optional)</span><textarea name="description" rows="2" maxlength="240">${esc(it.description || '')}</textarea></label>
+      ${photoField(it.photo_url)}
+      <label class="check"><input type="checkbox" name="available" ${it.available !== false ? 'checked' : ''}> In stock</label>
+      <label class="check"><input type="checkbox" name="hidden" ${it.hidden ? 'checked' : ''}> Hide from the menu</label>
+      <button class="btn block">${sh.id ? 'Save item' : 'Add item'}</button><p class="err" hidden></p>
+      ${sh.id ? `<button type="button" class="btn block ghost" data-a="itemDel" data-id="${sh.id}" style="margin-top:10px">Delete item</button>` : ''}</form>`;
+  },
+  cat(sh) {
+    const c = sh.id ? S.data.categories.find(x => x.id === sh.id) || {} : {};
+    return `<form data-f="cat"><h3>${sh.id ? 'Edit category' : 'Add a category'}</h3>
+      <label class="fld"><span>Name</span><input name="name" required maxlength="40" value="${esc(c.name || '')}" placeholder="e.g. Hot Sandwiches"></label>
+      <button class="btn block">Save</button><p class="err" hidden></p>
+      ${sh.id ? `<button type="button" class="btn block ghost" data-a="catDel" data-id="${sh.id}" style="margin-top:10px">Delete category</button><p class="sub small center">Items in it move to “More”, they aren’t deleted.</p>` : ''}</form>`;
+  }
+};
+function photoField(url) {
+  return `<div class="fld"><span>Photo (optional)</span><div class="ph">${url ? `<img src="${esc(url)}" alt="">` : '<img alt="" hidden>'}
+    <input type="file" name="photo" accept="image/*"><input type="hidden" name="photo_current" value="${esc(url || '')}">
+    ${url ? '<label class="check small"><input type="checkbox" name="photo_remove"> Remove photo</label>' : ''}</div></div>`;
+}
+async function resolvePhoto(fd) {
+  const f = fd.get('photo');
+  if (f && f.size) return await api.uploadPhoto(f);
+  if (fd.get('photo_remove')) return null;
+  return fd.get('photo_current') || null;
+}
+const findOrder = id => S.allOrders.find(o => o.id === id) || S.myOrders.find(o => o.id === id);
+function openSheet(sh) { S.sheet = sh; document.getElementById('toast').className = 'toast'; renderSheet(); }
+function closeSheet() { S.sheet = null; renderSheet(); }
+function renderSheet() {
+  const root = document.getElementById('sheet');
+  if (!S.sheet) { root.innerHTML = ''; document.body.classList.remove('lock'); return; }
+  root.innerHTML = `<div class="backdrop" data-a="close"></div><div class="sheet" role="dialog" aria-modal="true"><button class="x" data-a="close" aria-label="Close">×</button>${SHEETS[S.sheet.type](S.sheet)}</div>`;
+  document.body.classList.add('lock');
+}
+
+/* ---------------- cart ---------------- */
+function addToCart(line) {
+  const key = [line.k, line.id, line.option || '', line.note || ''].join('|');
+  const ex = S.cart.find(c => c.key === key);
+  if (ex) ex.qty += line.qty; else S.cart.push(Object.assign({ key }, line));
+  saveCart();
+  toast(`Added ${line.qty > 1 ? line.qty + '× ' : ''}${line.name}${line.option ? ' (' + line.option + ')' : ''}`, { label: 'View order', a: 'gotoCart' });
+  renderMain();
+}
+function lineOut(c) { return { name: c.name + (c.option ? ` (${c.option})` : '') + (c.k === 'deal' ? ' — DEAL' : ''), qty: c.qty, price: isNum(c.price) ? c.price : null, note: c.note || null }; }
+function dropEndedDeals() {
+  const live = activeDeals().map(d => d.id), before = S.cart.length;
+  S.cart = S.cart.filter(c => c.k !== 'deal' || live.includes(c.id));
+  if (S.cart.length !== before) { saveCart(); renderMain(); throw new Error('A deal in your order just ended or sold out, so it was removed. Check your order and send again.'); }
+}
+
+/* ---------------- actions (taps) ---------------- */
+let taps = 0, tapT;
+async function move(table, list, id, dir) {
+  const i = list.findIndex(x => x.id === id), j = i + dir;
+  if (i < 0 || j < 0 || j >= list.length) return;
+  const arr = list.slice(); [arr[i], arr[j]] = [arr[j], arr[i]];
+  await Promise.all(arr.map((x, k) => (x.sort !== k * 10 ? api.save(table, { id: x.id, sort: k * 10 }) : null)));
+  await refreshPublic();
+}
+const A = {
+  tab(el) { S.tab = el.dataset.v; renderMain(); window.scrollTo(0, 0); if (S.tab === 'ideas' || S.tab === 'owner') refreshUser(); },
+  gotoCart() { S.tab = 'order'; S.orderMode = 'pickup'; renderMain(); window.scrollTo(0, 0); },
+  gotoOrders() { closeSheet(); S.tab = 'order'; renderMain(); const el = document.getElementById('myorders'); if (el) el.scrollIntoView(); },
+  logo() {
+    taps++; clearTimeout(tapT);
+    if (taps >= 5) { taps = 0; if (isStaff()) { S.tab = 'owner'; renderMain(); } else openSheet({ type: 'staff', mode: S.staffOpen ? 'up' : 'in' }); return; }
+    tapT = setTimeout(() => { if (taps === 1) { S.tab = 'home'; renderMain(); window.scrollTo({ top: 0, behavior: 'smooth' }); } taps = 0; }, 500);
+  },
+  auth() { openSheet({ type: 'auth', mode: ls.get('omega_had_account', false) ? 'in' : 'up' }); },
+  authMode(el) { S.sheet.mode = el.dataset.v; renderSheet(); },
+  staffSetup() { openSheet({ type: 'staff', mode: 'up' }); },
+  staffMode(el) { S.sheet.mode = el.dataset.v; renderSheet(); },
+  account() { openSheet({ type: 'account' }); },
+  notifs() { ls.set('omega_seen', new Date().toISOString()); openSheet({ type: 'notifs' }); renderMain(); },
+  push() { enablePush(); },
+  close() { closeSheet(); },
+  reload() { location.reload(); },
+  async demoReset() { if (confirm('Reset the preview data on this device?')) { ls.del('omega_demo_v1'); ls.del('omega_cart'); location.reload(); } },
+  add(el, e) {
+    e.stopPropagation();
+    const k = el.dataset.k, id = +el.dataset.id, r = findRef(k, id); if (!r) return;
+    if (k === 'item' && r.options && r.options.length) return openSheet({ type: 'item', id });
+    addToCart({ k, id, name: r.name || r.title, option: '', price: isNum(r.price) ? +r.price : null, qty: 1 });
+  },
+  item(el) { openSheet({ type: 'item', id: +el.dataset.id }); },
+  sqty(el) { const inp = el.closest('form').querySelector('[name=qty]'); inp.value = Math.max(1, Math.min(50, (+inp.value || 1) + (+el.dataset.d))); },
+  cq(el) {
+    const c = S.cart.find(x => x.key === el.dataset.key); if (!c) return;
+    c.qty += +el.dataset.d; if (c.qty <= 0) S.cart = S.cart.filter(x => x !== c);
+    saveCart(); renderMain();
+  },
+  mode(el) { S.orderMode = el.dataset.v; renderMain(); },
+  catering() { S.tab = 'order'; S.orderMode = 'catering'; renderMain(); window.scrollTo(0, 0); },
+  jump(el) { const t = document.getElementById('cat-' + el.dataset.id); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); },
+  async cancelOrder(el) {
+    if (!confirm('Cancel this order?')) return;
+    try { await api.setOrder(+el.dataset.id, { status: 'cancelled' }); await refreshUser(); toast('Order cancelled'); } catch (e) { toast(e.message); }
+  },
+  async vote(el) {
+    if (!S.user) return A.auth();
+    const i = S.ideas.find(x => x.id === +el.dataset.id); if (!i) return;
+    i.voted = !i.voted; i.votes += i.voted ? 1 : -1; renderMain();
+    try { await api.vote(i.id, i.voted); } catch (e) { toast(e.message); }
+    refreshUser();
+  },
+  otab(el) { S.ownerTab = el.dataset.v; renderMain(); window.scrollTo(0, 0); if (S.ownerTab === 'ideas' || S.ownerTab === 'settings') refreshUser(); },
+  async ost(el) {
+    el.disabled = true;
+    try { await api.setOrder(+el.dataset.id, { status: el.dataset.v }); await refreshUser(); toast({ accepted: 'Accepted — customer notified', ready: 'Marked ready — customer notified', done: 'Done' }[el.dataset.v] || 'Updated'); }
+    catch (e) { toast(e.message); el.disabled = false; }
+  },
+  decline(el) { openSheet({ type: 'decline', id: +el.dataset.id }); },
+  wake() { toggleWake(); },
+  dealForm(el) { openSheet({ type: 'deal', id: el.dataset.id ? +el.dataset.id : null }); },
+  async dealEnd(el) { try { await api.save('deals', { id: +el.dataset.id, active: false }); await refreshPublic(); toast('Deal ended'); } catch (e) { toast(e.message); } },
+  async dealDec(el) {
+    const d = S.data.deals.find(x => x.id === +el.dataset.id); if (!d) return;
+    try { await api.save('deals', { id: d.id, qty_left: Math.max(0, d.qty_left - 1) }); await refreshPublic(); } catch (e) { toast(e.message); }
+  },
+  dealAgain(el) {
+    const d = S.data.deals.find(x => x.id === +el.dataset.id); if (!d) return;
+    openSheet({ type: 'deal', from: { title: d.title, price: d.price, was_price: d.was_price, description: d.description, photo_url: d.photo_url } });
+  },
+  async dealDel(el) {
+    if (!confirm('Delete this deal?')) return;
+    try { await api.remove('deals', +el.dataset.id); closeSheet(); await refreshPublic(); } catch (e) { toast(e.message); }
+  },
+  specialForm(el) { openSheet({ type: 'special', id: el.dataset.id ? +el.dataset.id : null }); },
+  async specialDel(el) { if (!confirm('Delete this special?')) return; try { await api.remove('specials', +el.dataset.id); closeSheet(); await refreshPublic(); } catch (e) { toast(e.message); } },
+  itemForm(el) { openSheet({ type: 'itemEdit', id: el.dataset.id ? +el.dataset.id : null }); },
+  async itemDel(el) { if (!confirm('Delete this item from the menu?')) return; try { await api.remove('menu_items', +el.dataset.id); closeSheet(); await refreshPublic(); } catch (e) { toast(e.message); } },
+  async avail(el) {
+    const i = S.data.items.find(x => x.id === +el.dataset.id); if (!i) return;
+    i.available = !i.available; renderMain();
+    try { await api.save('menu_items', { id: i.id, available: i.available }); } catch (e) { toast(e.message); }
+    refreshPublic();
+  },
+  async itemMove(el) {
+    const i = S.data.items.find(x => x.id === +el.dataset.id); if (!i) return;
+    const g = x => (S.data.categories.some(c => c.id === x.category_id) ? x.category_id : 0);
+    const list = S.data.items.filter(x => g(x) === g(i));
+    try { await move('menu_items', list, i.id, +el.dataset.d); } catch (e) { toast(e.message); }
+  },
+  catForm(el) { openSheet({ type: 'cat', id: el.dataset.id ? +el.dataset.id : null }); },
+  async catMove(el) { try { await move('categories', S.data.categories, +el.dataset.id, +el.dataset.d); } catch (e) { toast(e.message); } },
+  async catDel(el) { if (!confirm('Delete this category? Its items stay on the menu under “More”.')) return; try { await api.remove('categories', +el.dataset.id); closeSheet(); await refreshPublic(); } catch (e) { toast(e.message); } },
+  async ideaSt(el) { try { await api.setIdea(+el.dataset.id, { status: el.dataset.v }); await refreshUser(); } catch (e) { toast(e.message); } },
+  async ideaDel(el) { if (!confirm('Delete this idea?')) return; try { await api.delIdea(+el.dataset.id); await refreshUser(); } catch (e) { toast(e.message); } },
+  ideaSpecial(el) { const i = S.ideas.find(x => x.id === +el.dataset.id); if (i) openSheet({ type: 'special', title: i.text, ideaId: i.id }); },
+  async rmStaff(el) {
+    if (!confirm('Remove owner access for ' + el.dataset.v + '?')) return;
+    try { await api.removeStaffEmail(el.dataset.v); await Promise.all([refreshUser(), refreshStaffOpen()]); toast('Removed'); } catch (e) { toast(e.message); }
+  },
+  qr() { S.qr = true; renderMain(); window.scrollTo(0, 0); },
+  qrClose() { S.qr = false; if (location.hash) history.replaceState(null, '', location.pathname + location.search); renderMain(); },
+  print() { window.print(); },
+  async signout() {
+    if (!confirm('Sign out on this phone?')) return;
+    closeSheet(); await api.signOut(); await setUser(null, true); S.tab = 'home'; renderMain(); toast('Signed out');
+  }
+};
+
+/* ---------------- forms ---------------- */
+const F = {
+  async auth(fd, form) {
+    const d = digits(fd.get('phone'));
+    if (d.length !== 10) throw new Error('Enter a 10-digit mobile number.');
+    if (form.dataset.mode === 'up') await api.signUpPhone(String(fd.get('name')).trim(), d, fd.get('pw'));
+    else await api.signIn(phoneEmail(d), fd.get('pw'), 'customer');
+    ls.set('omega_had_account', true);
+    closeSheet(); await setUser(await api.getSession());
+    toast(S.cart.length && S.tab === 'order' ? 'You’re in — you can send your order now.' : 'You’re signed in 👋');
+  },
+  async staff(fd, form) {
+    const email = String(fd.get('email')).trim().toLowerCase(), pw = fd.get('pw');
+    if (form.dataset.mode === 'up') {
+      const st = await api.staffEmailStatus(email);
+      if (st === 'not_allowed') throw new Error('That email isn’t on the owner list.');
+      if (st === 'claimed') throw new Error('That email is already set up — sign in instead.');
+      await api.signUpStaff(email, pw, String(fd.get('name')).trim());
+    } else await api.signIn(email, pw, 'staff');
+    closeSheet();
+    if (location.hash === '#staff') history.replaceState(null, '', location.pathname + location.search);
+    await setUser(await api.getSession());
+    if (isStaff()) { S.tab = 'owner'; S.ownerTab = 'orders'; renderMain(); window.scrollTo(0, 0); toast('Welcome — you have owner access'); }
+    else toast('Signed in, but this login doesn’t have owner access.');
+  },
+  async name(fd) { await api.updateName(S.user.id, String(fd.get('name')).trim()); S.profile = await api.profile(S.user.id); closeSheet(); renderMain(); toast('Saved'); },
+  async addItem(fd) {
+    const r = findRef('item', S.sheet.id); const o = (r.options || [])[+fd.get('opt') || 0];
+    addToCart({ k: 'item', id: r.id, name: r.name, option: o ? o.label : '', price: o ? (isNum(o.price) ? +o.price : null) : (isNum(r.price) ? +r.price : null), qty: Math.max(1, +fd.get('qty') || 1), note: String(fd.get('note') || '').trim() });
+    closeSheet();
+  },
+  async pickup(fd) {
+    if (!S.user) return A.auth();
+    if (!S.cart.length) throw new Error('Your order is empty.');
+    dropEndedDeals();
+    const { total } = cartTotal();
+    await api.placeOrder({ kind: 'pickup', name: String(fd.get('name')).trim(), phone: (S.profile && S.profile.phone) || null, items: S.cart.map(lineOut),
+      est_total: Math.round(total * 100) / 100, pickup_at: fd.get('when'), notes: String(fd.get('notes') || '').trim() || null });
+    S.cart = []; saveCart(); await refreshUser();
+    toast('Order sent! We’ll let you know when it’s accepted.', pushOn() || isStaff() ? null : { label: 'Get alerts', a: 'push' });
+    const el = document.getElementById('myorders'); if (el) el.scrollIntoView({ behavior: 'smooth' });
+  },
+  async catering(fd) {
+    if (!S.user) return A.auth();
+    const when = new Date(fd.get('date') + 'T' + fd.get('time'));
+    if (isNaN(when) || when < new Date()) throw new Error('Pick a date and time in the future.');
+    const hc = toInt(fd.get('headcount')); if (!hc || hc < 1) throw new Error('How many people? Enter a number.');
+    const use = !!fd.get('usecart') && S.cart.length;
+    if (use) dropEndedDeals();
+    const notes = String(fd.get('notes') || '').trim();
+    if (!use && !notes) throw new Error('Tell us what you’d like (or add items from the menu).');
+    await api.placeOrder({ kind: 'catering', name: String(fd.get('name')).trim(), phone: (S.profile && S.profile.phone) || null,
+      company: String(fd.get('company') || '').trim() || null, location: String(fd.get('location') || '').trim() || null,
+      delivery: fd.get('delivery') === '1', headcount: hc, pickup_at: when.toISOString(), notes: notes || null,
+      items: use ? S.cart.map(lineOut) : [], est_total: use ? Math.round(cartTotal().total * 100) / 100 : 0 });
+    if (use) { S.cart = []; saveCart(); }
+    await refreshUser();
+    toast('Catering request sent! We’ll confirm with a notification.', pushOn() || isStaff() ? null : { label: 'Get alerts', a: 'push' });
+    const el = document.getElementById('myorders'); if (el) el.scrollIntoView({ behavior: 'smooth' });
+  },
+  async idea(fd, form) {
+    const text = String(fd.get('text') || '').trim(); if (text.length < 3) throw new Error('Write a little more.');
+    await api.addIdea(text); form.reset(); await refreshUser(); toast('Thanks! Your idea is up for votes.');
+  },
+  async decline(fd) {
+    await api.setOrder(S.sheet.id, { status: 'declined', staff_note: String(fd.get('note') || '').trim() || null });
+    closeSheet(); await refreshUser(); toast('Declined — customer notified');
+  },
+  async deal(fd) {
+    const sh = S.sheet, ends = hm2date(fd.get('ends'));
+    if (ends <= new Date()) throw new Error('Pick an end time later than now.');
+    const price = toNum(fd.get('price')); if (price === null) throw new Error('Enter the deal price.');
+    const row = { title: String(fd.get('title')).trim(), description: String(fd.get('description') || '').trim() || null, price, was_price: toNum(fd.get('was_price')),
+      qty_left: toInt(fd.get('qty_left')), ends_at: ends.toISOString(), photo_url: await resolvePhoto(fd) };
+    if (fd.get('from')) row.menu_item_id = +fd.get('from');
+    if (sh.id) row.id = sh.id; else { row.active = true; row.notify = !!fd.get('notify'); }
+    await api.save('deals', row);
+    if (!sh.id && row.notify) api.kick();
+    closeSheet(); await refreshPublic(); refreshUser();
+    toast(sh.id ? 'Deal saved' : row.notify ? 'Deal posted — customers alerted 🔥' : 'Deal posted 🔥');
+  },
+  async special(fd) {
+    const sh = S.sheet;
+    const row = { title: String(fd.get('title')).trim(), description: String(fd.get('description') || '').trim() || null, price: toNum(fd.get('price')),
+      days: fd.getAll('days').map(Number), active: !!fd.get('active'), photo_url: await resolvePhoto(fd) };
+    if (sh.id) row.id = sh.id; else row.sort = S.data.specials.length * 10;
+    await api.save('specials', row);
+    if (sh.ideaId) await api.setIdea(sh.ideaId, { status: 'made' }).catch(() => {});
+    closeSheet(); await refreshPublic(); if (sh.ideaId) refreshUser();
+    toast(sh.id ? 'Special saved' : 'Special added');
+  },
+  async item(fd) {
+    const sh = S.sheet;
+    const row = { name: String(fd.get('name')).trim(), category_id: fd.get('category_id') ? +fd.get('category_id') : null, price: toNum(fd.get('price')),
+      options: parseOptions(fd.get('options')), description: String(fd.get('description') || '').trim() || null,
+      available: !!fd.get('available'), hidden: !!fd.get('hidden'), photo_url: await resolvePhoto(fd) };
+    if (row.price === null && !row.options.length) throw new Error('Add a price (or sizes with prices).');
+    if (sh.id) row.id = sh.id; else row.sort = (S.data.items.reduce((m, x) => Math.max(m, x.sort || 0), 0)) + 10;
+    await api.save('menu_items', row);
+    closeSheet(); await refreshPublic(); toast(sh.id ? 'Item saved' : 'Item added');
+  },
+  async cat(fd) {
+    const sh = S.sheet, row = { name: String(fd.get('name')).trim() };
+    if (sh.id) row.id = sh.id; else row.sort = (S.data.categories.reduce((m, x) => Math.max(m, x.sort || 0), 0)) + 10;
+    await api.save('categories', row); closeSheet(); await refreshPublic(); toast('Category saved');
+  },
+  async settings(fd) {
+    const s = Object.assign({}, ST(), {
+      announcement: String(fd.get('announcement') || '').trim(), blowout_time: fd.get('blowout_time') || DEF.blowout_time,
+      open_time: fd.get('open_time') || DEF.open_time, close_time: fd.get('close_time') || DEF.close_time,
+      days_open: fd.getAll('days_open').map(Number), hours: String(fd.get('hours') || '').trim(), phone: String(fd.get('phone') || '').trim(),
+      address: String(fd.get('address') || '').trim(), ordering_open: !!fd.get('ordering_open'), catering_open: !!fd.get('catering_open'),
+      catering_note: String(fd.get('catering_note') || '').trim(), pickup_lead_min: toInt(fd.get('pickup_lead_min')) || 15
+    });
+    await api.saveSettings(s); await refreshPublic(); toast('Settings saved');
+  },
+  async staffAdd(fd, form) {
+    const email = String(fd.get('email')).trim().toLowerCase();
+    await api.addStaffEmail(email); form.reset(); await Promise.all([refreshUser(), refreshStaffOpen()]);
+    toast('Added — they can now create their owner login');
+  }
+};
+
+/* ---------------- change handlers ---------------- */
+const C = {
+  async spActive(el) { try { await api.save('specials', { id: +el.dataset.id, active: el.checked }); await refreshPublic(); } catch (e) { toast(e.message); } },
+  dealFrom(el) {
+    const i = S.data.items.find(x => x.id === +el.value), f = el.form; if (!i) return;
+    f.title.value = i.name;
+    const p = isNum(i.price) ? i.price : (i.options && i.options[0] ? i.options[0].price : null);
+    if (isNum(p)) f.was_price.value = (+p).toFixed(2);
+    if (i.photo_url) { f.photo_current.value = i.photo_url; const img = f.querySelector('.ph img'); img.src = i.photo_url; img.hidden = false; }
+  }
+};
+
+/* ---------------- events ---------------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-a]'); if (!el) return;
+  const fn = A[el.dataset.a]; if (!fn) return;
+  if (el.tagName === 'A') e.preventDefault();
+  if (el.closest('#toast')) document.getElementById('toast').className = 'toast';
+  fn(el, e);
+});
+document.addEventListener('submit', async e => {
+  const form = e.target.closest('form[data-f]'); if (!form) return;
+  e.preventDefault();
+  const fn = F[form.dataset.f]; if (!fn) return;
+  const btn = form.querySelector('button:not([type=button])'), err = form.querySelector('.err');
+  const label = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'One sec…'; }
+  if (err) err.hidden = true;
+  try { await fn(new FormData(form), form); }
+  catch (x) { console.error(x); if (err && form.isConnected) { err.textContent = x.message || 'Something went wrong.'; err.hidden = false; } else toast(x.message || 'Something went wrong.'); }
+  finally { if (btn && form.isConnected) { btn.disabled = false; btn.textContent = label; } }
+});
+document.addEventListener('change', e => { const el = e.target.closest('[data-ch]'); if (el && C[el.dataset.ch]) C[el.dataset.ch](el, e); });
+document.addEventListener('change', e => {
+  if (e.target.name !== 'photo' || !e.target.files || !e.target.files[0]) return;
+  const img = e.target.closest('.ph').querySelector('img'); img.src = URL.createObjectURL(e.target.files[0]); img.hidden = false;
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheet) closeSheet(); });
+function route() {
+  if (location.hash === '#staff') openSheet({ type: 'staff', mode: S.staffOpen ? 'up' : 'in' });
+  else if (location.hash === '#qr' && isStaff()) { S.qr = true; renderMain(); }
+}
+window.addEventListener('hashchange', route);
+
+/* ---------------- boot ---------------- */
+function loadScript(src) { return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('load')); document.head.appendChild(s); }); }
+async function boot() {
+  if (CFG.SUPABASE_URL && CFG.SUPABASE_ANON_KEY) {
+    try { await loadScript('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2'); }
+    catch (e) { S.error = 'Can’t reach Omega Deli right now. Check your connection and try again.'; renderMain(); return; }
+    api = supaApi(window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY, { auth: { persistSession: true, autoRefreshToken: true, storageKey: 'omega-auth' } }));
+  } else api = demoApi();
+  if (!ls.get('omega_seen', null)) ls.set('omega_seen', new Date().toISOString());
+  api.onAuth(u => setUser(u));
+  const [u] = await Promise.all([api.getSession().catch(() => null), api.loadPublic().then(d => { S.data = d; }).catch(e => console.warn(e))]);
+  await setUser(u, true);
+  S.loaded = true; renderMain(); route();
+  api.live(onLive);
+  let tick = 0;
+  setInterval(() => { if (document.hidden) return; tick++; if (isStaff() || tick % 3 === 0) refreshUser(); if (tick % 3 === 0) refreshPublic(); }, 20000);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { refreshPublic(); refreshUser(); } });
+  if ('serviceWorker' in navigator && !api.demo) navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+boot();
+})();
+</script>
+</body>
+</html>
