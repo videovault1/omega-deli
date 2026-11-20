@@ -211,6 +211,9 @@ form[data-kind=streak] .two.kf.streak{display:grid!important}
 .chips.wrapc{flex-wrap:wrap;overflow:visible;padding:0}
 details.more{margin:14px 0;border-top:1px solid var(--line);padding-top:6px}details.more summary{font-weight:600;cursor:pointer;padding:8px 0}
 .hist{font-size:14.5px}
+.partner{display:flex;align-items:center;gap:10px;color:var(--sub);font-size:13px;margin:-4px 0 6px}
+.partner img{height:26px;width:auto;opacity:.9}
+.foot-partner{height:34px;width:auto;margin:10px 0 2px;opacity:.85}
 @media print{.noprint{display:none!important}body{padding:0}}
 </style>
 </head>
@@ -241,7 +244,8 @@ const DEF = {
   phone: '', hours: '', open_time: '07:00', close_time: '15:00', days_open: [1,2,3,4,5],
   blowout_time: '14:00', announcement: '', ordering_open: true, catering_open: true,
   catering_note: 'Please give us at least 24 hours notice for catering. We’ll confirm with a notification.',
-  pickup_lead_min: 15, rewards_on: true, points_per_visit: 10, points_per_dollar: 0
+  pickup_lead_min: 15, rewards_on: true, points_per_visit: 10, points_per_dollar: 0,
+  tax_included: true, partner_line: 'Proudly serving Boar’s Head® premium meats & cheeses', partner_logo: ''
 };
 const STATUS = {
   new: ['Sent — waiting for Omega', 'amber'], accepted: ['Accepted', 'green'], ready: ['Ready for pickup', 'green'],
@@ -292,7 +296,11 @@ function parseOptions(txt) {
 }
 const optionsText = o => (o || []).map(x => x.label + (isNum(x.price) ? ' ' + (+x.price).toFixed(2) : '')).join('\n');
 const optPrice = (i, o) => (o && isNum(o.price) ? +o.price : isNum(i.price) ? +i.price : null);
-const priceText = i => (i.options && i.options.length) ? i.options.map(o => `${esc(o.label)} ${money(optPrice(i, o))}`).join(' · ') : money(i.price);
+const priceText = i => {
+  const os = i.options || []; if (!os.length) return money(i.price);
+  const ps = os.map(o => optPrice(i, o));
+  return new Set(ps.map(String)).size === 1 ? money(ps[0]) : os.map((o, k) => `${esc(o.label)} ${money(ps[k])}`).join(' · ');
+};
 
 async function shrink(file, max, q) {
   const url = URL.createObjectURL(file);
@@ -845,7 +853,9 @@ function menuGroups(includeHidden) {
 function menuSection() {
   const groups = menuGroups(false);
   if (!groups.length) return `<section class="sec" id="menu"><div class="sec-h"><h2>Menu</h2></div><div class="card empty sub">The full menu is being added — check back soon.</div></section>`;
-  return `<section class="sec" id="menu"><div class="sec-h"><h2>Menu</h2></div>
+  const st = ST();
+  return `<section class="sec" id="menu"><div class="sec-h"><h2>Menu</h2>${st.tax_included ? '<span class="label">Prices include tax</span>' : ''}</div>
+    ${st.partner_line || st.partner_logo ? `<div class="partner">${st.partner_logo ? `<img src="${esc(st.partner_logo)}" alt="">` : ''}<span>${esc(st.partner_line)}</span></div>` : ''}
     ${groups.length > 1 ? `<div class="chips sticky">${groups.map(g => `<button class="chip" data-a="jump" data-id="${g.c.id}">${esc(g.c.name)}</button>`).join('')}</div>` : ''}
     ${groups.map(g => `<div class="cat" id="cat-${g.c.id}"><div class="label cat-h">${esc(g.c.name)}</div>${g.list.map(itemRow).join('')}</div>`).join('')}</section>`;
 }
@@ -861,6 +871,7 @@ function footer() {
   return `<footer class="foot"><img src="logo.png" alt="" class="foot-logo">
     <div>${esc(s.address)}</div>${s.hours ? `<div>${esc(s.hours)}</div>` : ''}
     ${s.phone ? `<div><a href="tel:${esc(digits(s.phone))}">${esc(s.phone)}</a></div>` : ''}
+    ${s.partner_logo ? `<img src="${esc(s.partner_logo)}" alt="${esc(s.partner_line)}" class="foot-partner">` : ''}
     ${S.staffOpen && !isStaff() ? `<div class="small" style="margin-top:8px"><a href="#" data-a="staffSetup">Owner setup</a></div>` : ''}</footer>`;
 }
 
@@ -890,7 +901,7 @@ function viewPickup() {
   const { total, unpriced } = cartTotal(), sl = pickupSlots();
   return `<div class="card">${S.cart.map(cartLine).join('')}
       <div class="tot"><span>Estimated total</span><b>${money(total)}</b></div>
-      <div class="sub small">Before tax${unpriced ? ' · some items priced at the counter' : ''}. <b>You pay at the counter</b> when you pick up.</div></div>
+      <div class="sub small">${ST().tax_included ? 'Prices include sales tax' : 'Before tax'}${unpriced ? ' · some items priced at the counter' : ''}. <b>You pay at the counter</b> when you pick up.</div></div>
     <form data-f="pickup" class="card">
       <label class="fld"><span>Name for the order</span><input name="name" required maxlength="40" autocomplete="given-name" value="${esc(S.profile && S.profile.name || '')}"></label>
       ${sl.list.length ? `<label class="fld"><span>Pickup time · ${esc(sl.label)}</span><select name="when">${sl.list.map((t, i) => `<option value="${t.toISOString()}">${i === 0 && sl.label === 'Today' ? 'Soonest · ' : ''}${tFmt(t)}</option>`).join('')}</select></label>`
@@ -1024,7 +1035,7 @@ function orderCard(o) {
     ${cat ? `<div class="small">${[o.company, o.location, o.delivery ? 'Bring to office' : 'Pick up at counter'].filter(Boolean).map(esc).join(' · ')}</div>` : ''}
     ${(o.items || []).length ? `<ul class="ord-items">${o.items.map(i => `<li>${i.qty}× ${esc(i.name)}${i.note ? ` <i class="sub">— ${esc(i.note)}</i>` : ''}<span>${isNum(i.price) ? money(i.price * i.qty) : ''}</span></li>`).join('')}</ul>` : ''}
     ${o.notes ? `<div class="ord-notes">“${esc(o.notes)}”</div>` : ''}
-    ${+o.est_total ? `<div class="tot sm"><span>Est. total (before tax)</span><b>${money(o.est_total)}</b></div>` : ''}
+    ${+o.est_total ? `<div class="tot sm"><span>Est. total${ST().tax_included ? ' (tax incl.)' : ' (before tax)'}</span><b>${money(o.est_total)}</b></div>` : ''}
     ${o.staff_note ? `<div class="sub small">Your note: ${esc(o.staff_note)}</div>` : ''}
     <div class="sub small">Sent ${ago(o.created_at)}</div>
     ${btns ? `<div class="acts">${btns}</div>` : ''}</div>`;
@@ -1096,6 +1107,11 @@ function oSettings() {
       <label class="fld"><span>Hours (shown at the bottom)</span><input name="hours" maxlength="80" value="${esc(s.hours)}" placeholder="e.g. Mon–Fri 7 AM – 3 PM"></label>
       <label class="fld"><span>Phone</span><input name="phone" inputmode="tel" maxlength="20" value="${esc(s.phone)}" placeholder="(407) 555-0123"></label>
       <label class="fld"><span>Address</span><input name="address" maxlength="140" value="${esc(s.address)}"></label>
+      <label class="check"><input type="checkbox" name="tax_included" ${s.tax_included ? 'checked' : ''}> Menu prices include sales tax</label>
+      <h3 style="margin-top:18px">Brand partner</h3>
+      <label class="fld"><span>Line under the menu</span><input name="partner_line" maxlength="90" value="${esc(s.partner_line)}" placeholder="e.g. Proudly serving Boar’s Head® premium meats & cheeses"></label>
+      <div class="fld"><span>Partner logo (optional — use the official file from your Boar’s Head rep)</span></div>
+      ${photoField(s.partner_logo).replace('<div class="fld"><span>Photo (optional)</span>', '<div class="fld">')}
       <h3 style="margin-top:18px">Ordering</h3>
       <label class="check"><input type="checkbox" name="ordering_open" ${s.ordering_open ? 'checked' : ''}> Order ahead is on</label>
       <label class="check"><input type="checkbox" name="catering_open" ${s.catering_open ? 'checked' : ''}> Catering requests are on</label>
@@ -1604,7 +1620,8 @@ const F = {
       open_time: fd.get('open_time') || DEF.open_time, close_time: fd.get('close_time') || DEF.close_time,
       days_open: fd.getAll('days_open').map(Number), hours: String(fd.get('hours') || '').trim(), phone: String(fd.get('phone') || '').trim(),
       address: String(fd.get('address') || '').trim(), ordering_open: !!fd.get('ordering_open'), catering_open: !!fd.get('catering_open'),
-      catering_note: String(fd.get('catering_note') || '').trim(), pickup_lead_min: toInt(fd.get('pickup_lead_min')) || 15
+      catering_note: String(fd.get('catering_note') || '').trim(), pickup_lead_min: toInt(fd.get('pickup_lead_min')) || 15,
+      tax_included: !!fd.get('tax_included'), partner_line: String(fd.get('partner_line') || '').trim(), partner_logo: (await resolvePhoto(fd)) || ''
     });
     await api.saveSettings(s); await refreshPublic(); toast('Settings saved');
   },
