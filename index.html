@@ -173,6 +173,42 @@ textarea{resize:vertical}
 @keyframes pulse{to{opacity:.35}}
 .qrpage{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:30px 20px;text-align:center}
 .qr-logo{width:250px}.qr{width:min(78vw,360px);aspect-ratio:1;background:var(--soft)}.qr-h{font-size:26px;font-weight:800;line-height:1.2}.qr-s{color:var(--sub);font-size:17px}.qr-u{font-size:14px;color:var(--sub)}
+
+.mcard{background:var(--ink);color:#fff;border-radius:18px;padding:20px;margin:16px 0 14px}
+.mcard .label{color:#bdbdbd}
+.mc-name{font-size:20px;font-weight:700;margin-top:6px}
+.mc-big{font-size:30px;font-weight:800;letter-spacing:.06em;margin:6px 0 2px;line-height:1.15}
+.mc-row{display:flex;gap:22px;margin-top:14px;font-size:13px;color:#cfcfcf}.mc-row b{color:#fff;font-size:20px;display:block}
+.mcard p{margin:6px 0 14px;color:#d6d6d6}
+.btn.inv{background:#fff;color:var(--ink);border-color:#fff}
+.r-ic{width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center;font-size:20px;flex:none}
+.rw{display:flex;gap:12px;align-items:center;border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:10px}
+.rw.ready{border-color:var(--green);background:var(--greensoft)}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:10px}.bar i{display:block;height:100%;background:var(--ink);border-radius:4px}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.dots i{width:24px;height:24px;border-radius:50%;border:2px solid #d9d9d9;font-style:normal}.dots i.on{background:var(--ink);border-color:var(--ink)}.dots i.gift{border-style:dashed;display:grid;place-items:center;font-size:12px}
+.rstrip{display:flex;gap:12px;align-items:center;cursor:pointer}
+.rstrip.ready{border-color:var(--green);background:var(--greensoft)}
+.hold{position:relative;overflow:hidden;width:100%;height:66px;border-radius:16px;border:2px solid var(--green);background:#fff;color:var(--green);font-weight:800;font-size:16px;margin:22px 0 10px;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none;cursor:pointer;padding:0}
+.hold-fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--green)}
+.hold.holding .hold-fill{width:100%;transition:width 1s linear}
+.hold-t{position:relative;z-index:1;pointer-events:none}
+.hold.holding .hold-t{color:#fff}
+.redeemed .big-check{width:88px;height:88px;border-radius:50%;background:var(--green);color:#fff;font-size:48px;display:grid;place-items:center;margin:6px auto 12px;animation:pop .4s}
+@keyframes pop{from{transform:scale(.4)}}
+.live-clock{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;margin:8px 0 2px}
+.label.green{color:var(--green)}
+.kinds{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kind{position:relative}
+.kind input{position:absolute;opacity:0;pointer-events:none}
+.kind span{display:block;border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;height:100%;font-size:14.5px}
+.kind span i{display:block;font-style:normal;font-size:12.5px;color:var(--sub);margin-top:2px}
+.kind input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.kf{display:none!important}
+form[data-kind=punch] .kf.punch,form[data-kind=streak] .kf.streak,form[data-kind=points] .kf.points,form[data-kind=welcome] .kf.welcome{display:block!important}
+form[data-kind=streak] .two.kf.streak{display:grid!important}
+.chips.wrapc{flex-wrap:wrap;overflow:visible;padding:0}
+details.more{margin:14px 0;border-top:1px solid var(--line);padding-top:6px}details.more summary{font-weight:600;cursor:pointer;padding:8px 0}
+.hist{font-size:14.5px}
 @media print{.noprint{display:none!important}body{padding:0}}
 </style>
 </head>
@@ -203,7 +239,7 @@ const DEF = {
   phone: '', hours: '', open_time: '07:00', close_time: '15:00', days_open: [1,2,3,4,5],
   blowout_time: '14:00', announcement: '', ordering_open: true, catering_open: true,
   catering_note: 'Please give us at least 24 hours notice for catering. We’ll confirm with a notification.',
-  pickup_lead_min: 15
+  pickup_lead_min: 15, rewards_on: true, points_per_visit: 10, points_per_dollar: 0
 };
 const STATUS = {
   new: ['Sent — waiting for Omega', 'amber'], accepted: ['Accepted', 'green'], ready: ['Ready for pickup', 'green'],
@@ -216,7 +252,8 @@ const I = {
   bulb: '<svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1V16h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3z"/></svg>',
   store: '<svg viewBox="0 0 24 24"><path d="M4 9h16l-1.5-5h-13zM5 9v11h14V9M9.5 20v-6h5v6"/></svg>',
   bell: '<svg viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/></svg>',
-  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>'
+  plus: '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',
+  gift: '<svg viewBox="0 0 24 24"><path d="M4 11h16v10H4zM3 7h18v4H3zM12 7v14M12 7S10.5 3 8.5 3a2 2 0 0 0 0 4M12 7s1.5-4 3.5-4a2 2 0 0 1 0 4"/></svg>'
 };
 
 /* ---------------- helpers ---------------- */
@@ -298,14 +335,15 @@ function supaApi(sb) {
     async staffSignupOpen() { return !!T(await sb.rpc('staff_signup_open')); },
     async staffEmailStatus(e) { return T(await sb.rpc('staff_email_status', { e })); },
     async loadPublic() {
-      const [s, c, i, sp, d] = await Promise.all([
+      const [s, c, i, sp, d, rp] = await Promise.all([
         sb.from('settings').select('data').eq('id', 1).maybeSingle(),
         sb.from('categories').select('*').order('sort').order('id'),
         sb.from('menu_items').select('*').order('sort').order('id'),
         sb.from('specials').select('*').order('sort').order('id'),
-        sb.from('deals').select('*').order('created_at', { ascending: false }).limit(40)
+        sb.from('deals').select('*').order('created_at', { ascending: false }).limit(40),
+        sb.from('reward_programs').select('*').order('sort').order('id')
       ]);
-      return { settings: (T(s) || {}).data || {}, categories: T(c), items: T(i), specials: T(sp), deals: T(d) };
+      return { settings: (T(s) || {}).data || {}, categories: T(c), items: T(i), specials: T(sp), deals: T(d), programs: rp.error ? [] : rp.data };
     },
     async save(table, row) {
       const { id, ...rest } = row;
@@ -343,6 +381,16 @@ function supaApi(sb) {
     async removeStaffEmail(email) { T(await sb.from('staff_emails').delete().eq('email', email)); },
     async customerCount() { const r = await sb.from('profiles').select('id', { count: 'exact', head: true }).eq('role', 'customer'); return r.count; },
     async savePush(sub) { T(await sb.rpc('save_push_sub', { s: sub })); },
+    async rewardsSummary(uid) { return T(await sb.rpc('rewards_summary', { uid })); },
+    async findCustomers(q) { return T(await sb.rpc('staff_find_customers', { q })) || []; },
+    async addVisit(uid, amount) { T(await sb.from('visits').insert({ user_id: uid, source: 'counter', amount })); this.kick(); },
+    async adjustPoints(uid, points) { T(await sb.from('visits').insert({ user_id: uid, source: 'adjust', points, note: 'Points adjusted by Omega' })); },
+    async deleteVisit(id) { T(await sb.from('visits').delete().eq('id', id)); },
+    async useReward(id) { return T(await sb.rpc('use_reward', { rid: id })); },
+    async redeemPoints(pid) { return T(await sb.rpc('redeem_points', { pid })); },
+    async removeReward(id) { T(await sb.from('customer_rewards').update({ status: 'removed' }).eq('id', id)); },
+    async giveReward(uid, title, days) { T(await sb.from('customer_rewards').insert({ user_id: uid, title, source: 'Gift from Omega', expires_at: days ? new Date(Date.now() + days * 864e5).toISOString() : null })); this.kick(); },
+    async resetRewards(uid) { T(await sb.rpc('staff_reset_rewards', { uid })); },
     kick() { sb.functions.invoke('smart-action').catch(() => {}); },
     live(cb) { try { sb.channel('omega-live').on('postgres_changes', { event: '*', schema: 'public' }, p => cb(p.table, p)).subscribe(); } catch (e) {} }
   };
@@ -359,7 +407,39 @@ function demoApi() {
   let authCb = () => {};
   const me = () => db.users.find(u => u.id === db.session) || null;
   const staffU = u => !!u && (u.role === 'owner' || u.role === 'master');
-  const TBL = { categories: 'categories', menu_items: 'items', specials: 'specials', deals: 'deals' };
+  const TBL = { categories: 'categories', menu_items: 'items', specials: 'specials', deals: 'deals', reward_programs: 'programs' };
+  ['programs', 'visits', 'progress', 'crewards'].forEach(k => { if (!db[k]) db[k] = []; });
+  const progOn = p => p.active && (!p.ends_on || p.ends_on >= todayISO());
+  const resetOf = (uid, pid) => { const r = db.progress.find(x => x.user_id === uid && x.program_id === pid); return r ? +new Date(r.reset_at) : 0; };
+  const setReset = (uid, pid) => { const t = new Date(Date.now() + 1).toISOString(); const r = db.progress.find(x => x.user_id === uid && x.program_id === pid); if (r) r.reset_at = t; else db.progress.push({ user_id: uid, program_id: pid, reset_at: t }); };
+  const pcount = (uid, p) => {
+    const since = Math.max(+new Date(p.created_at), resetOf(uid, p.id));
+    const vs = db.visits.filter(v => v.user_id === uid && v.source !== 'adjust' && +new Date(v.created_at) >= since);
+    if (p.kind !== 'streak') return vs.length;
+    const st = new Date(); st.setHours(0, 0, 0, 0); st.setDate(st.getDate() - ((p.window_days || 7) - 1));
+    return new Set(vs.filter(v => new Date(v.created_at) >= st).map(v => new Date(v.created_at).toDateString())).size;
+  };
+  const balance = uid => db.visits.filter(v => v.user_id === uid).reduce((a, v) => a + (v.points || 0), 0) - db.crewards.filter(r => r.user_id === uid && r.status !== 'removed').reduce((a, r) => a + (r.points_spent || 0), 0);
+  const issue = (uid, pid, title, source, days) => {
+    const r = { id: nid(), user_id: uid, program_id: pid, title, source, points_spent: 0, status: 'ready', expires_at: days ? new Date(Date.now() + days * 864e5).toISOString() : null, used_at: null, created_at: now() };
+    db.crewards.push(r); note('user', '🎁 Reward ready: ' + title, (r.expires_at ? 'Use it by ' + dFmt(r.expires_at) + '. ' : '') + 'Show it at the counter to redeem.', uid);
+  };
+  const addVisitD = (uid, source, amount, order_id) => {
+    const st = Object.assign({}, DEF, db.settings);
+    db.visits.push({ id: nid(), user_id: uid, source, order_id: order_id || null, amount: amount || null, points: (+st.points_per_visit || 0) + Math.floor((amount || 0) * (+st.points_per_dollar || 0)), created_at: now() });
+    if (st.rewards_on === false) return;
+    db.programs.filter(p => progOn(p) && (p.kind === 'punch' || p.kind === 'streak')).forEach(p => { if (pcount(uid, p) >= Math.max(1, p.goal || 1)) { issue(uid, p.id, p.reward, p.title, p.expires_days); setReset(uid, p.id); } });
+  };
+  const summary = uid => {
+    const vs = db.visits.filter(v => v.user_id === uid).sort((a, b) => (a.created_at < b.created_at ? 1 : -1)), real = vs.filter(v => v.source !== 'adjust'), nowD = new Date();
+    return {
+      points: balance(uid), visits: real.length, last_visit: real[0] ? real[0].created_at : null,
+      progress: db.programs.filter(p => p.active && (p.kind === 'punch' || p.kind === 'streak')).map(p => ({ program_id: p.id, count: pcount(uid, p) })),
+      ready: db.crewards.filter(r => r.user_id === uid && r.status === 'ready' && (!r.expires_at || new Date(r.expires_at) > nowD)),
+      recent: vs.slice(0, 15).map(v => ({ id: v.id, at: v.created_at, source: v.source, points: v.points, amount: v.amount, note: v.note })),
+      used: db.crewards.filter(r => r.user_id === uid && (r.status !== 'ready' || (r.expires_at && new Date(r.expires_at) <= nowD))).map(r => ({ id: r.id, title: r.title, status: r.status, at: r.used_at || r.created_at, expires_at: r.expires_at })).sort((a, b) => (a.at < b.at ? 1 : -1)).slice(0, 10)
+    };
+  };
   const note = (audience, title, body, user_id) => db.notifs.unshift({ id: nid(), audience, user_id: user_id || null, title, body, created_at: now() });
   const signedUp = e => db.users.some(u => u.email === e);
   const login = u => { db.session = u.id; save(); authCb({ id: u.id }); };
@@ -373,7 +453,9 @@ function demoApi() {
     async signUpPhone(name, d, pw) {
       const email = phoneEmail(d);
       if (signedUp(email)) throw new Error('That number already has an account — sign in instead.');
-      const u = { id: 'u' + nid(), email, pw, name, phone: d, role: 'customer' }; db.users.push(u); login(u);
+      const u = { id: 'u' + nid(), email, pw, name, phone: d, role: 'customer' }; db.users.push(u);
+      db.programs.filter(p => progOn(p) && p.kind === 'welcome').forEach(p => issue(u.id, p.id, p.reward, p.title, p.expires_days));
+      login(u);
     },
     async signIn(email, pw, who) { const u = db.users.find(x => x.email === email && x.pw === pw); if (!u) throw friendly({ message: 'Invalid login credentials' }, who); login(u); },
     async signUpStaff(email, pw, name) {
@@ -385,13 +467,13 @@ function demoApi() {
     async staffSignupOpen() { return db.staff.some(s => !signedUp(s.email)); },
     async staffEmailStatus(e) { e = e.toLowerCase().trim(); if (!db.staff.some(s => s.email === e)) return 'not_allowed'; return signedUp(e) ? 'claimed' : 'open'; },
     async loadPublic() {
-      return JSON.parse(JSON.stringify({ settings: db.settings, categories: sortBy(db.categories), items: sortBy(db.items), specials: sortBy(db.specials),
+      return JSON.parse(JSON.stringify({ settings: db.settings, categories: sortBy(db.categories), items: sortBy(db.items), specials: sortBy(db.specials), programs: sortBy(db.programs),
         deals: db.deals.slice().sort((a, b) => (a.created_at < b.created_at ? 1 : -1)) }));
     },
     async save(table, row) {
       const list = db[TBL[table]];
       if (row.id) { const i = list.findIndex(x => x.id === row.id); list[i] = Object.assign({}, list[i], row); save(); return list[i]; }
-      const base = { categories: { sort: 0 }, menu_items: { options: [], available: true, hidden: false, sort: 0 }, specials: { days: [], active: true, sort: 0 }, deals: { active: true, notify: true } }[table];
+      const base = { categories: { sort: 0 }, menu_items: { options: [], available: true, hidden: false, sort: 0 }, specials: { days: [], active: true, sort: 0 }, deals: { active: true, notify: true }, reward_programs: { active: true, sort: 0 } }[table];
       const r = Object.assign({ id: nid(), created_at: now() }, base, row); list.push(r);
       if (table === 'deals' && r.notify && r.active) note('customers', '🔥 Blowout deal: ' + r.title, [money(r.price), 'until ' + tFmt(r.ends_at)].filter(Boolean).join(' · '));
       save(); return r;
@@ -420,6 +502,7 @@ function demoApi() {
           declined: ['Sorry — we couldn’t take your ' + what, o.staff_note || 'Please stop by the counter or give us a call.'] };
         if (msgs[o.status]) note('user', msgs[o.status][0], msgs[o.status][1], o.user_id);
         if (o.status === 'cancelled') note('staff', 'Order cancelled — ' + o.name, 'The customer cancelled it.');
+        if (o.status === 'done') addVisitD(o.user_id, 'order', +o.est_total || 0, o.id);
       }
       save();
     },
@@ -447,11 +530,41 @@ function demoApi() {
     },
     async removeStaffEmail(email) { db.staff = db.staff.filter(s => s.email !== email || s.locked); const u = db.users.find(x => x.email === email); if (u) u.role = 'customer'; save(); },
     async customerCount() { return db.users.filter(u => u.role === 'customer').length; },
+    async rewardsSummary(uid) { return JSON.parse(JSON.stringify(summary(uid))); },
+    async findCustomers(q) {
+      const d = digits(q), t = String(q || '').trim().toLowerCase();
+      return db.users.filter(u => u.role === 'customer' && (!t || (d.length >= 2 && (u.phone || '').includes(d)) || (!d && t.length >= 2 && (u.name || '').toLowerCase().includes(t))))
+        .map(u => { const x = summary(u.id); return { id: u.id, name: u.name, phone: u.phone, visits: x.visits, points: x.points, last_visit: x.last_visit }; })
+        .sort((a, b) => ((b.last_visit || '') > (a.last_visit || '') ? 1 : -1)).slice(0, 25);
+    },
+    async addVisit(uid, amount) { addVisitD(uid, 'counter', amount); save(); },
+    async adjustPoints(uid, points) { db.visits.push({ id: nid(), user_id: uid, source: 'adjust', points, amount: null, note: 'Points adjusted by Omega', created_at: now() }); save(); },
+    async deleteVisit(id) { db.visits = db.visits.filter(v => v.id !== id); save(); },
+    async useReward(id) {
+      const r = db.crewards.find(x => x.id === id), u = me();
+      if (!r || r.status !== 'ready' || (r.expires_at && new Date(r.expires_at) <= new Date()) || !u || !(r.user_id === u.id || staffU(u))) throw new Error('This reward was already used, expired or removed.');
+      r.status = 'used'; r.used_at = now(); save(); return r;
+    },
+    async redeemPoints(pid) {
+      const u = me(), p = db.programs.find(x => x.id === pid && x.kind === 'points' && progOn(x));
+      if (!p) throw new Error('That reward isn’t available right now.');
+      if (balance(u.id) < p.goal) throw new Error('Not enough points yet.');
+      const r = { id: nid(), user_id: u.id, program_id: p.id, title: p.reward, source: p.title, points_spent: p.goal, status: 'used', expires_at: null, used_at: now(), created_at: now() };
+      db.crewards.push(r); save(); return r;
+    },
+    async removeReward(id) { const r = db.crewards.find(x => x.id === id); if (r) r.status = 'removed'; save(); },
+    async giveReward(uid, title, days) { issue(uid, null, title, 'Gift from Omega', days); save(); },
+    async resetRewards(uid) {
+      db.programs.forEach(p => setReset(uid, p.id));
+      db.crewards.forEach(r => { if (r.user_id === uid && r.status === 'ready') r.status = 'removed'; });
+      const b = balance(uid); if (b) db.visits.push({ id: nid(), user_id: uid, source: 'adjust', points: -b, amount: null, note: 'Reset by Omega', created_at: now() });
+      save();
+    },
     async savePush() {}, kick() {}, live() {}
   };
 }
 function seedDemo() {
-  const t = new Date().toISOString(), close = hm2date(DEF.close_time);
+  const t = new Date().toISOString(), close = hm2date(DEF.close_time), monthAgo = new Date(Date.now() - 30 * 864e5).toISOString();
   const ends = close > new Date() ? close : new Date(Date.now() + 3 * 3600e3);
   const it = (id, category_id, name, description, price, options, available) => ({ id, category_id, name, description, price, options: options || [], available: available !== false, hidden: false, sort: id, photo_url: null });
   return {
@@ -469,6 +582,12 @@ function seedDemo() {
     ],
     specials: [{ id: 41, title: 'Chicken Souvlaki Plate', description: 'Sample special — rice and Greek salad', price: 11.95, days: [], active: true, sort: 1 }],
     deals: [{ id: 51, title: 'Spanakopita', description: 'Sample blowout deal', price: 3, was_price: 6.5, qty_left: 4, ends_at: ends.toISOString(), active: true, notify: false, created_at: t }],
+    programs: [
+      { id: 71, kind: 'punch', title: 'Lunch Club', reward: 'Free meal', description: 'Sample — get checked in each visit; your 10th meal is on us.', goal: 9, window_days: null, expires_days: 30, ends_on: null, active: true, sort: 1, created_at: monthAgo },
+      { id: 72, kind: 'streak', title: 'Perfect Week', reward: 'Free meal', description: 'Sample — come in 5 different days within a week.', goal: 5, window_days: 7, expires_days: 14, ends_on: null, active: true, sort: 2, created_at: monthAgo },
+      { id: 73, kind: 'welcome', title: 'Welcome to Omega', reward: 'Free cookie', description: 'Sample — just for signing up.', goal: null, window_days: null, expires_days: 30, ends_on: null, active: true, sort: 3, created_at: monthAgo },
+      { id: 74, kind: 'points', title: 'Soup on us', reward: 'Free cup of soup', description: null, goal: 100, window_days: null, expires_days: null, ends_on: null, active: true, sort: 4, created_at: monthAgo }
+    ], visits: [], progress: [], crewards: [],
     ideas: [{ id: 61, text: 'Lamb gyro platter on Fridays', user_id: 'x', status: 'open', created_at: t }, { id: 62, text: 'Pastitsio as a lunch special', user_id: 'x', status: 'open', created_at: t }],
     votes: [{ idea_id: 62, user_id: 'x' }, { idea_id: 62, user_id: 'y' }, { idea_id: 61, user_id: 'y' }]
   };
@@ -481,7 +600,8 @@ const S = {
   data: { settings: {}, categories: [], items: [], specials: [], deals: [] },
   cart: ls.get('omega_cart', []), orderMode: 'pickup',
   myOrders: [], allOrders: [], ideas: [], notifs: [], staffEmails: [], customerCount: null,
-  ownerTab: 'orders', staffOpen: false, sheet: null
+  ownerTab: 'orders', staffOpen: false, sheet: null,
+  rewards: null, custQ: '', custResults: null
 };
 const ST = () => Object.assign({}, DEF, S.data.settings || {});
 const isStaff = () => !!S.profile && (S.profile.role === 'owner' || S.profile.role === 'master');
@@ -493,6 +613,32 @@ const newOrderCount = () => S.allOrders.filter(o => o.status === 'new').length;
 const activeDeals = () => S.data.deals.filter(d => d.active && new Date(d.ends_at) > new Date() && !(d.qty_left !== null && d.qty_left !== undefined && d.qty_left <= 0));
 const todaysSpecials = () => { const wd = new Date().getDay(); return S.data.specials.filter(s => s.active && (!s.days || !s.days.length || s.days.includes(wd))); };
 const unreadCount = () => { const t = ls.get('omega_seen', null); return t ? S.notifs.filter(n => new Date(n.created_at) > new Date(t)).length : 0; };
+function todayISO() { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+const progActive = p => p.active && (!p.ends_on || p.ends_on >= todayISO());
+const progs = kind => (S.data.programs || []).filter(p => progActive(p) && (!kind || p.kind === kind));
+const rewardsOn = () => ST().rewards_on !== false && progs().length > 0;
+const hasPoints = () => progs('points').length > 0;
+const readyCount = () => (S.user && S.rewards && S.rewards.ready ? S.rewards.ready.length : 0);
+const KIND = { punch: ['🎟️', 'Punch card', 'Every X visits earns it'], streak: ['🔥', 'Visit streak', 'X visits within Y days'], points: ['⭐', 'Points reward', 'Customers spend points on it'], welcome: ['👋', 'Welcome gift', 'Given when someone signs up'] };
+const TEMPLATES = [
+  { label: '10th meal free', kind: 'punch', title: 'Lunch Club', reward: 'Free meal', goal: 9, expires_days: 30, description: 'Get checked in each visit — your 10th meal is on us.' },
+  { label: '5 visits in a week', kind: 'streak', title: 'Perfect Week', reward: 'Free meal', goal: 5, window_days: 7, expires_days: 14, description: 'Come in 5 different days within a week and your next meal is free.' },
+  { label: 'Welcome gift', kind: 'welcome', title: 'Welcome to Omega', reward: 'Free cookie', expires_days: 30, description: 'Just for signing up.' },
+  { label: 'Points for soup', kind: 'points', title: 'Soup on us', reward: 'Free cup of soup', goal: 100 }
+];
+function progLine(p) {
+  return p.kind === 'punch' ? `${p.goal} visits → ${p.reward}` : p.kind === 'streak' ? `${p.goal} visits within ${p.window_days} days → ${p.reward}`
+    : p.kind === 'points' ? `${p.goal} points → ${p.reward}` : `Sign up → ${p.reward}`;
+}
+const progCount = (R, id) => { const x = R && (R.progress || []).find(p => p.program_id === id); return x ? x.count : 0; };
+function progressBlock(p, n) {
+  const g = Math.max(1, p.goal || 1), left = Math.max(0, g - n);
+  const vis = g <= 12 ? `<div class="dots">${Array.from({ length: g }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')}<i class="gift">🎁</i></div>`
+    : `<div class="bar"><i style="width:${Math.min(100, n / g * 100)}%"></i></div>`;
+  const txt = p.kind === 'streak' ? `${n} of ${g} days · ${left ? left + ' more within ' + p.window_days + ' days' : 'reward on its way'}` : `${n} of ${g} visits · ${left ? left + ' more to go' : 'reward on its way'}`;
+  return vis + `<div class="sub small" style="margin-top:6px">${txt}</div>`;
+}
+const clockText = () => new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' }) + ' · ' + dFmt(new Date());
 function findRef(k, id) { return k === 'deal' ? S.data.deals.find(x => x.id === id) : k === 'special' ? S.data.specials.find(x => x.id === id) : S.data.items.find(x => x.id === id); }
 
 /* ---------------- loading ---------------- */
@@ -503,7 +649,8 @@ async function refreshUser() {
     api.notifications().then(n => { S.notifs = n || []; }),
     api.listIdeas().then(x => { S.ideas = x || []; })
   ];
-  if (S.user) jobs.push(api.myOrders(S.user.id).then(x => { S.myOrders = x || []; })); else S.myOrders = [];
+  if (S.user) jobs.push(api.myOrders(S.user.id).then(x => { S.myOrders = x || []; }), api.rewardsSummary(S.user.id).then(x => { S.rewards = x; }));
+  else { S.myOrders = []; S.rewards = null; }
   if (isStaff()) jobs.push(
     api.allOrders().then(x => { S.allOrders = x || []; }),
     api.staffEmails().then(x => { S.staffEmails = x || []; }),
@@ -540,7 +687,8 @@ function onLive(table) {
   clearTimeout(liveT);
   liveT = setTimeout(() => {
     if (['settings', 'categories', 'menu_items', 'specials', 'deals'].includes(table)) refreshPublic();
-    if (['orders', 'notifications', 'deals'].includes(table)) refreshUser();
+    if (table === 'reward_programs') refreshPublic();
+    if (['orders', 'notifications', 'deals', 'visits', 'customer_rewards'].includes(table)) refreshUser();
   }, 350);
 }
 
@@ -616,7 +764,7 @@ function renderMain() {
   if (!S.loaded) return;
   if (S.qr) { root.innerHTML = viewQR(); return; }
   const y = window.scrollY;
-  const views = { home: viewHome, order: viewOrder, ideas: viewIdeas, owner: viewOwner };
+  const views = { home: viewHome, order: viewOrder, rewards: viewRewards, ideas: viewIdeas, owner: viewOwner };
   root.innerHTML = header() + banners() + `<main class="wrap">${(views[S.tab] || viewHome)()}</main>` + tabs();
   window.scrollTo(0, y);
 }
@@ -636,7 +784,9 @@ function banners() {
     + (s.announcement ? `<div class="announce">${esc(s.announcement)}</div>` : '');
 }
 function tabs() {
-  const t = [['home', 'Today', I.home], ['order', 'Order', I.bag, cartCount()], ['ideas', 'Ideas', I.bulb]];
+  const t = [['home', 'Today', I.home], ['order', 'Order', I.bag, cartCount()]];
+  if (rewardsOn()) t.push(['rewards', 'Rewards', I.gift, readyCount()]);
+  t.push(['ideas', 'Ideas', I.bulb]);
   if (isStaff()) t.push(['owner', 'Owner', I.store, newOrderCount()]);
   return `<nav class="tabs">${t.map(([k, l, ic, b]) => `<button class="tab ${S.tab === k ? 'on' : ''}" data-a="tab" data-v="${k}">${ic}${b ? `<span class="tb">${b}</span>` : ''}<span>${l}</span></button>`).join('')}</nav>`;
 }
@@ -655,6 +805,7 @@ function viewHome() {
       ${isStaff() ? '' : pushOn() ? '<div class="sub small">✓ You’ll get an alert when deals post.</div>' : '<button class="btn sm ghost" data-a="push">🔔 Alert me when deals drop</button>'}
     </div></div></section>`;
   }
+  h += rewardsStrip();
   if (sp.length) h += `<section class="sec"><div class="sec-h"><h2>Today’s specials</h2><span class="label">${now.toLocaleDateString([], { weekday: 'long' })}</span></div>${sp.map(specialCard).join('')}</section>`;
   h += menuSection();
   if (s.catering_open) h += `<section class="sec"><div class="card cta"><div><h3>Catering for your office</h3><p class="sub">Breakfast, lunch and meetings — tell us what you need.</p></div><button class="btn" data-a="catering">Request catering</button></div></section>`;
@@ -777,6 +928,42 @@ function viewMyOrders() {
   }).join('')}</section>`;
 }
 
+/* ----- Rewards ----- */
+function rewardsStrip() {
+  if (!rewardsOn() || isStaff()) return '';
+  if (!S.user) {
+    const p = progs().find(x => x.kind === 'punch' || x.kind === 'streak') || progs()[0];
+    return `<div class="card rstrip" data-a="tab" data-v="rewards"><div class="r-ic">🎁</div><div class="grow"><b>Omega Rewards</b><div class="sub small">${esc(progLine(p))}</div></div><span class="btn sm">Join free</span></div>`;
+  }
+  const R = S.rewards; if (!R) return '';
+  if (R.ready.length) return `<div class="card rstrip ready" data-a="tab" data-v="rewards"><div class="r-ic">🎁</div><div class="grow"><b>${R.ready.length} reward${R.ready.length > 1 ? 's' : ''} ready</b><div class="sub small">${esc(R.ready[0].title)}</div></div><span class="btn sm green">Use</span></div>`;
+  const p = progs('punch')[0] || progs('streak')[0]; if (!p) return '';
+  const n = progCount(R, p.id), g = Math.max(1, p.goal || 1);
+  return `<div class="card rstrip" data-a="tab" data-v="rewards"><div class="r-ic">${KIND[p.kind][0]}</div><div class="grow"><b>${n} of ${g} toward ${esc(p.reward)}</b><div class="bar"><i style="width:${Math.min(100, n / g * 100)}%"></i></div></div></div>`;
+}
+function viewRewards() {
+  if (!rewardsOn()) return `<section class="sec"><h2>Omega Rewards</h2><div class="card empty sub" style="margin-top:12px">Rewards are coming soon.</div></section>`;
+  const how = progs().map(p => `<div class="rw"><div class="r-ic">${KIND[p.kind][0]}</div><div class="grow"><b>${esc(p.title)}</b><div class="sub small">${esc(progLine(p))}${p.expires_days && p.kind !== 'points' ? ` · good for ${p.expires_days} days` : ''}</div>${p.description ? `<div class="sub small">${esc(p.description)}</div>` : ''}</div></div>`).join('');
+  if (!S.user) return `<div class="mcard"><div class="label">Omega Rewards</div><div class="mc-big" style="letter-spacing:0">Eat here.<br>Earn free food.</div><p>Join free with your phone number — no codes, no emails.</p><button class="btn inv" data-a="auth">Join free</button></div>
+    <section class="sec"><div class="sec-h"><h2>How it works</h2></div>${how}</section>`;
+  const R = S.rewards || { points: 0, visits: 0, progress: [], ready: [], recent: [], used: [] };
+  const p = S.profile || {}, last4 = String(p.phone || '').slice(-4), st = ST();
+  let h = `<div class="mcard"><div class="label">Omega Rewards member</div><div class="mc-name">${esc(p.name || 'Member')}</div>
+    ${last4 ? `<div class="mc-big">•••• ${esc(last4)}</div><div class="small" style="color:#bdbdbd">Give the cashier your number when you pay so the visit counts</div>` : ''}
+    <div class="mc-row"><div><b>${R.visits}</b>visits</div>${hasPoints() ? `<div><b>${R.points}</b>points</div>` : ''}<div><b>${R.ready.length}</b>ready</div></div></div>`;
+  if (R.ready.length) h += `<section class="sec"><div class="sec-h"><h2>Ready to use</h2></div>${R.ready.map(r => `<div class="rw ready"><div class="r-ic">🎁</div><div class="grow"><b>${esc(r.title)}</b><div class="sub small">${esc(r.source || '')}${r.expires_at ? ` · use by ${dFmt(r.expires_at)}` : ''}</div></div><button class="btn sm green" data-a="useReward" data-id="${r.id}">Use</button></div>`).join('')}</section>`;
+  const pp = progs().filter(x => x.kind === 'punch' || x.kind === 'streak');
+  if (pp.length) h += `<section class="sec"><div class="sec-h"><h2>Your progress</h2></div>${pp.map(x => `<div class="card"><div class="row gap"><div class="r-ic">${KIND[x.kind][0]}</div><div class="grow"><b>${esc(x.title)}</b><div class="sub small">${esc(progLine(x))}</div></div></div>${progressBlock(x, progCount(R, x.id))}</div>`).join('')}</section>`;
+  const pts = progs('points');
+  if (pts.length) h += `<section class="sec"><div class="sec-h"><h2>Spend points</h2><span class="label">${R.points} pts</span></div>${pts.map(x => `<div class="rw"><div class="r-ic">⭐</div><div class="grow"><b>${esc(x.reward)}</b><div class="sub small">${x.goal} points${R.points < x.goal ? ` · ${x.goal - R.points} more to go` : ''}</div></div>${R.points >= x.goal ? `<button class="btn sm green" data-a="usePoints" data-id="${x.id}">Use</button>` : ''}</div>`).join('')}</section>`;
+  h += `<div class="card notice"><div class="notice-ic">💡</div><div><b>How to earn</b><p class="sub small">Give the cashier your number${last4 ? ` (•••• ${esc(last4)})` : ''} when you pay${hasPoints() && +st.points_per_visit ? ` — every visit is +${st.points_per_visit} points` : ''}. Orders placed in the app count automatically when you pick them up.</p></div></div>`;
+  const hist = [...(R.recent || []).map(v => ({ at: v.at, t: v.source === 'adjust' ? (v.note || 'Points adjusted') : v.source === 'order' ? 'App order picked up' : 'Visit', p: v.points })),
+    ...(R.used || []).map(r => ({ at: r.at, t: (r.status === 'used' ? 'Used: ' : r.status === 'removed' ? 'Removed: ' : 'Expired: ') + r.title }))]
+    .sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 12);
+  if (hist.length) h += `<section class="sec"><div class="sec-h"><h2>Activity</h2></div>${hist.map(x => `<div class="arow hist"><div class="grow">${esc(x.t)}<div class="sub small">${ago(x.at)}</div></div>${x.p && hasPoints() ? `<b>${x.p > 0 ? '+' : ''}${x.p} pts</b>` : ''}</div>`).join('')}</section>`;
+  return h;
+}
+
 /* ----- Ideas ----- */
 function viewIdeas() {
   return `<section class="sec"><h2>Special of the day ideas</h2>
@@ -792,8 +979,8 @@ function viewIdeas() {
 /* ----- Owner ----- */
 function viewOwner() {
   if (!isStaff()) return '';
-  const t = [['orders', 'Orders', newOrderCount()], ['deals', 'Deals'], ['specials', 'Specials'], ['menu', 'Menu'], ['ideas', 'Ideas'], ['settings', 'Settings']];
-  const v = { orders: oOrders, deals: oDeals, specials: oSpecials, menu: oMenu, ideas: oIdeas, settings: oSettings }[S.ownerTab] || oOrders;
+  const t = [['orders', 'Orders', newOrderCount()], ['rewards', 'Rewards'], ['deals', 'Deals'], ['specials', 'Specials'], ['menu', 'Menu'], ['ideas', 'Ideas'], ['settings', 'Settings']];
+  const v = { orders: oOrders, rewards: oRewards, deals: oDeals, specials: oSpecials, menu: oMenu, ideas: oIdeas, settings: oSettings }[S.ownerTab] || oOrders;
   return `<div class="chips">${t.map(([k, l, b]) => `<button class="chip ${S.ownerTab === k ? 'on' : ''}" data-a="otab" data-v="${k}">${l}${b ? `<span class="cnt">${b}</span>` : ''}</button>`).join('')}</div>${v()}`;
 }
 function oOrders() {
@@ -827,6 +1014,23 @@ function orderCard(o) {
     ${o.staff_note ? `<div class="sub small">Your note: ${esc(o.staff_note)}</div>` : ''}
     <div class="sub small">Sent ${ago(o.created_at)}</div>
     ${btns ? `<div class="acts">${btns}</div>` : ''}</div>`;
+}
+function oRewards() {
+  const s = ST(), list = S.data.programs || [];
+  return `<form data-f="custSearch" class="card" style="margin-top:6px"><h3>Check in a customer</h3><p class="sub small" style="margin-top:0">Type their phone number (last 4 is fine) or name, then tap them to add a visit or redeem a reward.</p>
+      <div class="idea-f"><input name="q" inputmode="search" autocomplete="off" placeholder="e.g. 0199" value="${esc(S.custQ)}"><button class="btn">Find</button></div><p class="err" hidden></p>
+      ${S.custResults ? (S.custResults.length ? `${S.custQ ? '' : '<div class="label" style="margin-top:12px">Recent customers</div>'}${S.custResults.map(c => `<div class="arow" data-a="cust" data-id="${esc(c.id)}"><div class="grow"><b>${esc(c.name || 'Customer')}</b> <span class="sub">${esc(fmtPhone(c.phone))}</span><div class="sub small">${c.visits} visit${c.visits === 1 ? '' : 's'}${hasPoints() ? ` · ${c.points} pts` : ''}${c.last_visit ? ` · last ${ago(c.last_visit)}` : ''}</div></div><span class="sub" style="font-size:22px">›</span></div>`).join('')}`
+        : `<p class="sub">${S.custQ ? 'No customers match that.' : 'No customers yet.'}</p>`) : ''}</form>
+    <div class="sec-h" style="margin-top:22px"><h2>Your rewards</h2><button class="btn sm" data-a="progForm">+ New reward</button></div>
+    ${list.length ? list.map(p => `<div class="arow ${progActive(p) ? '' : 'dim'}"><div class="r-ic">${KIND[p.kind][0]}</div><div class="grow" data-a="progForm" data-id="${p.id}"><b>${esc(p.title)}</b>
+        <div class="sub small">${esc(progLine(p))}${p.expires_days && p.kind !== 'points' ? ` · expires ${p.expires_days} days after earned` : ''}${p.ends_on ? ` · ends ${dFmt(p.ends_on + 'T12:00')}` : ''}</div></div>
+        <label class="tgl" aria-label="Active"><input type="checkbox" data-ch="progActive" data-id="${p.id}" ${p.active ? 'checked' : ''}><span></span></label></div>`).join('')
+      : '<p class="sub">No rewards yet. Tap “+ New reward” — there are ready-made ideas to start from.</p>'}
+    <form data-f="pointsSettings" class="card" style="margin-top:16px"><h3>Points &amp; settings</h3>
+      <label class="check"><input type="checkbox" name="rewards_on" ${s.rewards_on !== false ? 'checked' : ''}> Rewards program is on</label>
+      <div class="two"><label class="fld"><span>Points per visit</span><input name="points_per_visit" inputmode="numeric" value="${esc(s.points_per_visit)}"></label><label class="fld"><span>Points per $1 spent</span><input name="points_per_dollar" inputmode="decimal" value="${esc(s.points_per_dollar)}"></label></div>
+      <p class="sub small">Points only show to customers when you have a “Points reward”. Points per $1 uses the amount you enter at check-in, or the app order total. App orders count as a visit when you mark them picked up.</p>
+      <button class="btn block ghost">Save</button><p class="err" hidden></p></form>`;
 }
 function oDeals() {
   const act = activeDeals(), past = S.data.deals.filter(d => !act.includes(d)).slice(0, 12);
@@ -903,6 +1107,55 @@ function viewQR() {
 
 /* ---------------- sheets ---------------- */
 const SHEETS = {
+  redeem(sh) {
+    const p = S.profile || {}, last4 = String(p.phone || '').slice(-4), who = esc(p.name || '') + (last4 ? ' · •••• ' + esc(last4) : '');
+    if (sh.done) return `<div class="center redeemed"><div class="big-check">✓</div><div class="label green">Redeemed</div><h2 style="margin:6px 0">${esc(sh.title)}</h2>
+      <div class="live-clock" id="liveclock">${clockText()}</div><div class="sub">${who}</div><p class="sub small">The live clock shows this isn’t a screenshot.</p><button class="btn block" data-a="close">Done</button></div>`;
+    const prog = sh.kind === 'points' ? (S.data.programs || []).find(x => x.id === sh.id) : null;
+    const r = sh.kind === 'points' ? null : ((S.rewards && S.rewards.ready) || []).find(x => x.id === sh.id);
+    const title = prog ? prog.reward : r ? r.title : '';
+    if (!title) return '<p class="sub">This reward isn’t available anymore.</p>';
+    return `<div class="center"><div class="label">Show this to the cashier</div><h2 style="margin:10px 0 4px">${esc(title)}</h2><div class="sub">${who}${prog ? ` · uses ${prog.goal} points` : ''}${r && r.expires_at ? ` · use by ${dFmt(r.expires_at)}` : ''}</div>
+      <button type="button" class="hold" data-hold="${sh.kind}" data-id="${sh.id}" data-title="${esc(title)}"><span class="hold-fill"></span><span class="hold-t">Cashier: press &amp; hold to redeem</span></button>
+      <p class="sub small">Only the cashier should press this. Once redeemed, it’s used up.</p><p class="err" hidden></p></div>`;
+  },
+  cust(sh) {
+    const c = sh.c, R = sh.summary;
+    const head = `<h3>${esc(c.name || 'Customer')}</h3><p class="sub" style="margin-top:0">${c.phone ? `<a href="tel:${esc(digits(c.phone))}">${esc(fmtPhone(c.phone))}</a>` : ''}${R ? ` · ${R.visits} visit${R.visits === 1 ? '' : 's'}${hasPoints() ? ` · <b>${R.points} pts</b>` : ''}` : ''}</p>`;
+    if (!R) return head + '<p class="sub">Loading…</p>';
+    const today = R.last_visit && sameDay(R.last_visit, new Date());
+    return head + `<form data-f="checkin" class="card"><b>Check in this visit</b>${today ? `<p class="small" style="color:var(--amber);margin:6px 0 0">Already checked in today at ${tFmt(R.last_visit)}.</p>` : ''}
+        ${+ST().points_per_dollar > 0 ? '<label class="fld" style="margin:10px 0 0"><span>Amount spent (optional)</span><input name="amount" inputmode="decimal" placeholder="0.00"></label>' : ''}
+        <button class="btn block green" style="margin-top:10px">+1 visit</button><p class="err" hidden></p></form>
+      ${R.ready.length ? `<div class="label" style="margin-top:16px">Ready rewards</div>${R.ready.map(r => `<div class="arow"><div class="grow"><b>${esc(r.title)}</b><div class="sub small">${esc(r.source || '')}${r.expires_at ? ` · use by ${dFmt(r.expires_at)}` : ''}</div></div>
+          <button class="btn sm green" data-a="staffUse" data-id="${r.id}">Redeem</button><button class="mini" data-a="staffRemove" data-id="${r.id}">Remove</button></div>`).join('')}` : ''}
+      ${progs().filter(x => x.kind === 'punch' || x.kind === 'streak').map(x => `<div style="margin-top:14px"><b>${esc(x.title)}</b> <span class="sub small">${esc(progLine(x))}</span>${progressBlock(x, progCount(R, x.id))}</div>`).join('')}
+      <details class="more" ${sh.more ? 'open' : ''}><summary>More options</summary>
+        <form data-f="gift"><div class="fld" style="margin:8px 0 0"><span>Give a reward</span></div><div class="idea-f" style="margin-top:0"><input name="title" maxlength="60" required placeholder="e.g. Free cookie"><button class="btn ghost">Give</button></div>
+          <label class="fld"><span>Expires after (days, optional)</span><input name="days" inputmode="numeric" placeholder="Leave blank for no expiration"></label><p class="err" hidden></p></form>
+        ${hasPoints() ? '<form data-f="adjust"><div class="fld" style="margin:8px 0 0"><span>Add or remove points</span></div><div class="idea-f" style="margin-top:0"><input name="pts" inputmode="numeric" placeholder="e.g. 20 or -20"><button class="btn ghost">Adjust</button></div><p class="err" hidden></p></form>' : ''}
+        <button class="btn block ghost" data-a="resetCust" style="margin-top:12px">Reset progress, points &amp; rewards</button>
+      </details>
+      ${R.recent.length ? `<div class="label" style="margin-top:10px">Recent activity</div>${R.recent.slice(0, 8).map(v => `<div class="arow hist"><div class="grow">${v.source === 'adjust' ? esc(v.note || 'Points adjusted') : v.source === 'order' ? 'App order picked up' : 'Visit'}<div class="sub small">${ago(v.at)}${hasPoints() && v.points ? ` · ${v.points > 0 ? '+' : ''}${v.points} pts` : ''}</div></div>${v.source === 'adjust' ? '' : `<button class="mini" data-a="undoVisit" data-id="${v.id}">Undo</button>`}</div>`).join('')}` : ''}`;
+  },
+  program(sh) {
+    const p = sh.id ? ((S.data.programs || []).find(x => x.id === sh.id) || {}) : Object.assign({ kind: 'punch', active: true }, sh.tpl || {});
+    const v = k => (p[k] == null ? '' : esc(p[k]));
+    return `<form data-f="program" data-kind="${esc(p.kind)}"><h3>${sh.id ? 'Edit reward' : 'New reward'}</h3>
+      ${sh.id ? '' : `<div class="fld"><span>Start from an idea</span><div class="chips wrapc">${TEMPLATES.map((t, i) => `<button type="button" class="chip" data-a="progTpl" data-i="${i}">${esc(t.label)}</button>`).join('')}</div></div>`}
+      <div class="fld"><span>Type</span><div class="kinds">${Object.keys(KIND).map(k => `<label class="kind"><input type="radio" name="kind" value="${k}" data-ch="progKind" ${p.kind === k ? 'checked' : ''}><span>${KIND[k][0]} <b>${KIND[k][1]}</b><i>${KIND[k][2]}</i></span></label>`).join('')}</div></div>
+      <label class="fld"><span>Name</span><input name="title" required maxlength="40" value="${v('title')}" placeholder="e.g. Lunch Club"></label>
+      <label class="fld"><span>What they get</span><input name="reward" required maxlength="60" value="${v('reward')}" placeholder="e.g. Free sandwich or plate"></label>
+      <label class="fld kf punch"><span>Visits needed to earn it</span><input name="goal_punch" inputmode="numeric" value="${p.kind === 'punch' ? v('goal') : ''}" placeholder="e.g. 9"></label>
+      <div class="two kf streak"><label class="fld"><span>Visits needed</span><input name="goal_streak" inputmode="numeric" value="${p.kind === 'streak' ? v('goal') : ''}" placeholder="e.g. 5"></label><label class="fld"><span>Within how many days</span><input name="window_days" inputmode="numeric" value="${v('window_days')}" placeholder="e.g. 7"></label></div>
+      <label class="fld kf points"><span>Points it costs</span><input name="goal_points" inputmode="numeric" value="${p.kind === 'points' ? v('goal') : ''}" placeholder="e.g. 100"></label>
+      <label class="fld kf punch streak welcome"><span>Earned reward expires after (days)</span><input name="expires_days" inputmode="numeric" value="${v('expires_days')}" placeholder="Leave blank for no expiration"></label>
+      <label class="fld"><span>Short description (optional)</span><input name="description" maxlength="120" value="${v('description')}"></label>
+      <label class="fld"><span>Program ends on (optional)</span><input type="date" name="ends_on" value="${v('ends_on')}"></label>
+      <label class="check"><input type="checkbox" name="active" ${p.active !== false ? 'checked' : ''}> Active</label>
+      <button class="btn block">Save reward</button><p class="err" hidden></p>
+      ${sh.id ? `<button type="button" class="btn block ghost" data-a="progDel" data-id="${sh.id}" style="margin-top:10px">Delete</button><p class="sub small center">Rewards customers already earned stay in their accounts.</p>` : ''}</form>`;
+  },
   auth(sh) {
     const up = sh.mode === 'up';
     return `<div class="seg"><button type="button" class="${up ? 'on' : ''}" data-a="authMode" data-v="up">Create account</button><button type="button" class="${up ? '' : 'on'}" data-a="authMode" data-v="in">Sign in</button></div>
@@ -1052,7 +1305,50 @@ async function move(table, list, id, dir) {
   await Promise.all(arr.map((x, k) => (x.sort !== k * 10 ? api.save(table, { id: x.id, sort: k * 10 }) : null)));
   await refreshPublic();
 }
+async function searchCustomers() {
+  try { S.custResults = await api.findCustomers(S.custQ || ''); } catch (e) { toast(e.message); }
+  if (S.tab === 'owner' && S.ownerTab === 'rewards') renderMain();
+}
+async function loadCust() {
+  const sh = S.sheet; if (!sh || sh.type !== 'cust') return;
+  try { const s = await api.rewardsSummary(sh.c.id); if (S.sheet === sh) { sh.summary = s; renderSheet(); } } catch (e) { toast(e.message); }
+}
+let holdT = null, holdEl = null;
+document.addEventListener('pointerdown', e => {
+  const b = e.target.closest('[data-hold]'); if (!b || b.disabled) return;
+  e.preventDefault(); holdEl = b; b.classList.add('holding');
+  holdT = setTimeout(() => { holdT = null; redeemNow(b); }, 1000);
+});
+const holdCancel = () => { if (holdT) { clearTimeout(holdT); holdT = null; if (holdEl) holdEl.classList.remove('holding'); } holdEl = null; };
+document.addEventListener('pointerup', holdCancel); document.addEventListener('pointercancel', holdCancel);
+document.addEventListener('contextmenu', e => { if (e.target.closest('[data-hold]')) e.preventDefault(); });
+async function redeemNow(b) {
+  b.disabled = true; const err = b.parentNode.querySelector('.err');
+  try {
+    if (b.dataset.hold === 'points') await api.redeemPoints(+b.dataset.id); else await api.useReward(+b.dataset.id);
+    try { navigator.vibrate && navigator.vibrate(80); } catch (e) {}
+    S.sheet = { type: 'redeem', done: true, title: b.dataset.title }; renderSheet(); refreshUser();
+  } catch (x) { b.disabled = false; b.classList.remove('holding'); if (err) { err.textContent = x.message; err.hidden = false; } }
+}
+setInterval(() => { const el = document.getElementById('liveclock'); if (el) el.textContent = clockText(); }, 1000);
+document.addEventListener('toggle', e => { if (e.target.matches && e.target.matches('details.more') && S.sheet) S.sheet.more = e.target.open; }, true);
 const A = {
+  useReward(el) { openSheet({ type: 'redeem', kind: 'reward', id: +el.dataset.id }); },
+  usePoints(el) { openSheet({ type: 'redeem', kind: 'points', id: +el.dataset.id }); },
+  async cust(el) {
+    const c = (S.custResults || []).find(x => String(x.id) === el.dataset.id); if (!c) return;
+    openSheet({ type: 'cust', c, summary: null }); await loadCust();
+  },
+  async staffUse(el) { try { await api.useReward(+el.dataset.id); toast('Redeemed ✓ — it’s used up now'); await loadCust(); } catch (e) { toast(e.message); } },
+  async staffRemove(el) { if (!confirm('Remove this reward from their account?')) return; try { await api.removeReward(+el.dataset.id); toast('Reward removed'); await loadCust(); } catch (e) { toast(e.message); } },
+  async undoVisit(el) { if (!confirm('Undo this visit?')) return; try { await api.deleteVisit(+el.dataset.id); toast('Visit removed'); await loadCust(); searchCustomers(); } catch (e) { toast(e.message); } },
+  async resetCust() {
+    if (!confirm('Reset this customer’s progress, points and unused rewards to zero?')) return;
+    try { await api.resetRewards(S.sheet.c.id); toast('Customer reset'); await loadCust(); searchCustomers(); } catch (e) { toast(e.message); }
+  },
+  progForm(el) { openSheet({ type: 'program', id: el.dataset.id ? +el.dataset.id : null }); },
+  progTpl(el) { openSheet({ type: 'program', tpl: TEMPLATES[+el.dataset.i] }); },
+  async progDel(el) { if (!confirm('Delete this reward program?')) return; try { await api.remove('reward_programs', +el.dataset.id); closeSheet(); await refreshPublic(); } catch (e) { toast(e.message); } },
   tab(el) { S.tab = el.dataset.v; renderMain(); window.scrollTo(0, 0); if (S.tab === 'ideas' || S.tab === 'owner') refreshUser(); },
   gotoCart() { S.tab = 'order'; S.orderMode = 'pickup'; renderMain(); window.scrollTo(0, 0); },
   gotoOrders() { closeSheet(); S.tab = 'order'; renderMain(); const el = document.getElementById('myorders'); if (el) el.scrollIntoView(); },
@@ -1098,7 +1394,7 @@ const A = {
     try { await api.vote(i.id, i.voted); } catch (e) { toast(e.message); }
     refreshUser();
   },
-  otab(el) { S.ownerTab = el.dataset.v; renderMain(); window.scrollTo(0, 0); if (S.ownerTab === 'ideas' || S.ownerTab === 'settings') refreshUser(); },
+  otab(el) { S.ownerTab = el.dataset.v; renderMain(); window.scrollTo(0, 0); if (S.ownerTab === 'ideas' || S.ownerTab === 'settings') refreshUser(); if (S.ownerTab === 'rewards') searchCustomers(); },
   async ost(el) {
     el.disabled = true;
     try { await api.setOrder(+el.dataset.id, { status: el.dataset.v }); await refreshUser(); toast({ accepted: 'Accepted — customer notified', ready: 'Marked ready — customer notified', done: 'Done' }[el.dataset.v] || 'Updated'); }
@@ -1157,6 +1453,33 @@ const A = {
 
 /* ---------------- forms ---------------- */
 const F = {
+  async custSearch(fd) { S.custQ = String(fd.get('q') || '').trim(); await searchCustomers(); },
+  async checkin(fd) {
+    const sh = S.sheet, before = new Set(((sh.summary && sh.summary.ready) || []).map(r => r.id));
+    await api.addVisit(sh.c.id, toNum(fd.get('amount')));
+    await loadCust();
+    const fresh = ((S.sheet && S.sheet.summary && S.sheet.summary.ready) || []).filter(r => !before.has(r.id));
+    toast(fresh.length ? `🎉 Checked in — they just earned: ${fresh[0].title}` : 'Checked in ✓');
+    searchCustomers();
+  },
+  async gift(fd) { await api.giveReward(S.sheet.c.id, String(fd.get('title')).trim(), toInt(fd.get('days'))); await loadCust(); toast('Reward given — they’ll get a notification'); },
+  async adjust(fd) { const n = toInt(fd.get('pts')); if (!n) throw new Error('Enter a number like 20 or -20.'); await api.adjustPoints(S.sheet.c.id, n); await loadCust(); toast('Points adjusted'); searchCustomers(); },
+  async program(fd) {
+    const sh = S.sheet, kind = fd.get('kind');
+    const goal = kind === 'punch' ? toInt(fd.get('goal_punch')) : kind === 'streak' ? toInt(fd.get('goal_streak')) : kind === 'points' ? toInt(fd.get('goal_points')) : null;
+    if (kind !== 'welcome' && (!goal || goal < 1)) throw new Error(kind === 'points' ? 'How many points does it cost?' : 'How many visits are needed?');
+    const win = kind === 'streak' ? toInt(fd.get('window_days')) : null;
+    if (kind === 'streak' && (!win || win < 1)) throw new Error('Within how many days?');
+    if (kind === 'streak' && goal > win) throw new Error('Visits needed can’t be more than the number of days (one visit counts per day).');
+    const row = { kind, title: String(fd.get('title')).trim(), reward: String(fd.get('reward')).trim(), description: String(fd.get('description') || '').trim() || null,
+      goal, window_days: win, expires_days: kind === 'points' ? null : toInt(fd.get('expires_days')), ends_on: fd.get('ends_on') || null, active: !!fd.get('active') };
+    if (sh.id) row.id = sh.id; else row.sort = ((S.data.programs || []).reduce((m, x) => Math.max(m, x.sort || 0), 0)) + 10;
+    await api.save('reward_programs', row); closeSheet(); await refreshPublic(); toast('Reward saved');
+  },
+  async pointsSettings(fd) {
+    const s = Object.assign({}, ST(), { rewards_on: !!fd.get('rewards_on'), points_per_visit: toInt(fd.get('points_per_visit')) || 0, points_per_dollar: toNum(fd.get('points_per_dollar')) || 0 });
+    await api.saveSettings(s); await refreshPublic(); toast('Saved');
+  },
   async auth(fd, form) {
     const d = digits(fd.get('phone'));
     if (d.length !== 10) throw new Error('Enter a 10-digit mobile number.');
@@ -1280,6 +1603,8 @@ const F = {
 
 /* ---------------- change handlers ---------------- */
 const C = {
+  async progActive(el) { try { await api.save('reward_programs', { id: +el.dataset.id, active: el.checked }); await refreshPublic(); } catch (e) { toast(e.message); } },
+  progKind(el) { el.form.dataset.kind = el.value; },
   async spActive(el) { try { await api.save('specials', { id: +el.dataset.id, active: el.checked }); await refreshPublic(); } catch (e) { toast(e.message); } },
   dealFrom(el) {
     const i = S.data.items.find(x => x.id === +el.value), f = el.form; if (!i) return;
