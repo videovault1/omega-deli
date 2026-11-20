@@ -99,6 +99,8 @@ input:not([type=checkbox]):not([type=radio]):not([type=file]),select,textarea{wi
 select{background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.8'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:34px!important}
 input:focus,select:focus,textarea:focus{border-color:var(--ink)!important}
 input[type=file]{font-size:14px;max-width:100%}
+input[type=date],input[type=time]{min-height:48px;display:block;text-align:left}
+input[type=date]::-webkit-date-and-time-value,input[type=time]::-webkit-date-and-time-value{text-align:left;min-height:1.45em}
 textarea{resize:vertical}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .check{display:flex;gap:10px;align-items:center;margin:10px 0;font-size:15px;cursor:pointer}
@@ -905,14 +907,19 @@ function cartLine(c) {
 function viewCatering() {
   const s = ST();
   if (!s.catering_open) return `<div class="card notice"><div class="notice-ic">⏸️</div><div><b>Catering requests are paused right now.</b><p class="sub">Please stop by the counter or give us a call.</p></div></div>`;
-  const { total } = cartTotal(), today = new Date(), min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  const { total } = cartTotal();
+  const open = (s.days_open && s.days_open.length) ? s.days_open : [0, 1, 2, 3, 4, 5, 6], days = [];
+  for (let off = 1; off <= 60 && days.length < 30; off++) { const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + off); if (open.includes(d.getDay())) days.push({ d, off }); }
+  const ymd = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const times = []; for (let m = 6 * 60; m <= 19 * 60; m += 15) times.push(String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'));
   return `<div class="card notice"><div class="notice-ic">🍽️</div><div><b>Catering request</b><p class="sub">${esc(s.catering_note)}</p></div></div>
     <form data-f="catering" class="card">
       <label class="fld"><span>Your name</span><input name="name" required maxlength="40" value="${esc(S.profile && S.profile.name || '')}"></label>
       <label class="fld"><span>Company / firm</span><input name="company" maxlength="80" autocomplete="organization"></label>
       <label class="fld"><span>Floor &amp; suite</span><input name="location" maxlength="80" placeholder="e.g. 14th floor, Suite 1400"></label>
-      <div class="two"><label class="fld"><span>Date</span><input type="date" name="date" required min="${min}"></label><label class="fld"><span>Time</span><input type="time" name="time" required value="11:30"></label></div>
-      <label class="fld"><span>How many people?</span><input name="headcount" inputmode="numeric" required placeholder="e.g. 20"></label>
+      <div class="two"><label class="fld"><span>Day</span><select name="date" required>${days.map(x => `<option value="${ymd(x.d)}">${x.off === 1 ? 'Tomorrow · ' : ''}${x.d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })}</option>`).join('')}</select></label>
+        <label class="fld"><span>Time</span><select name="time" required>${times.map(t => `<option value="${t}" ${t === '11:30' ? 'selected' : ''}>${hmLabel(t)}</option>`).join('')}</select></label></div>
+      <label class="fld"><span>How many people?</span><input name="headcount" inputmode="numeric" pattern="[0-9]*" required placeholder="e.g. 20"></label>
       <div class="fld"><span>Pickup or delivered?</span>
         <label class="check"><input type="radio" name="delivery" value="0" checked> We’ll pick it up at the counter</label>
         <label class="check"><input type="radio" name="delivery" value="1"> Bring it to our office</label></div>
